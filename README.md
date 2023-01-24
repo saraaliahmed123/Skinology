@@ -25,10 +25,12 @@ or
 npm run ios
 
 ## Features
+
 - Personalized product recommendations
 - Product reviews and ratings
 
 ## Tech Stack
+
 - React Native
 - Firebase
 - Expo CLI
