@@ -4,16 +4,33 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import IndexScreen from './src/screens/IndexScreen';
+import CreateAccount from './src/screens/CreateAccount';
+import LogIn from './src/screens/LogIn';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator 
+        initialRouteName='IndexScreen'
+        screenOptions={{
+          headerShown: false
+        }}
+      >
         <Stack.Screen 
-          name='Index'
+          name='IndexScreen'
           component={IndexScreen}
-          options={{title: "Index Page"}}
+          options={{title: "SKINOLOGY"}}
+        />
+        <Stack.Screen 
+          name='CreateAccount'
+          component={CreateAccount}
+          options={{title: "SKINOLOGY"}}
+        />
+        <Stack.Screen 
+          name='LogIn'
+          component={LogIn}
+          options={{title: "SKINOLOGY"}}
         />
       </Stack.Navigator>
     </NavigationContainer>
