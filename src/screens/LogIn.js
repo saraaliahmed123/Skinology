@@ -32,7 +32,7 @@ const LogIn = ({navigation}) => {
         <View style={styles.buttonAndText}>
             <Button 
                 text={"LOGIN"}
-                onPress={() => {navigation.navigate("CreateAccount")}}
+                onPress={() => {navigation.navigate("Main")}}
                 sty={"#3D5744"}
             />
             <TouchableOpacity 

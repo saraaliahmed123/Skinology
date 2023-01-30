@@ -44,7 +44,7 @@ const CreateAccount = ({navigation}) => {
         <View style={styles.buttonAndText}>
             <Button 
                 text={"CREATE ACCOUNT"}
-                onPress={() => {navigation.navigate("CreateAccount")}}
+                onPress={() => {navigation.navigate("TermsConditions")}}
                 sty={"#371E21"}
             />
             <TouchableOpacity 
