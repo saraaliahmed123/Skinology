@@ -45,17 +45,17 @@ const CreateAccount = ({navigation}) => {
             <Button 
                 text={"CREATE ACCOUNT"}
                 onPress={() => {navigation.navigate("TermsConditions")}}
-                sty={"#371E21"}
+                sty={"#3D5744"}
             />
             <TouchableOpacity 
                 style={styles.haveAccount}
-                onPress={() => {navigation.navigate("IndexScreen")}}
+                onPress={() => {navigation.pop()}}
             >
                 <Text style={styles.haveAccounttxt}>Back</Text>
             </TouchableOpacity>
         </View>
         <Image style={styles.image}
-                source={require('../componenets/CreateAccountImage.png')}
+                source={require('../componenets/here.png')}
         />
     </View>
     </SafeAreaView>
@@ -66,20 +66,21 @@ const styles = StyleSheet.create({
     page:{
         height: "100%",
         flexDirection: "column",
+       // backgroundColor: "rgba(61, 87, 68, 0.3)"
     },
     heading:{
         fontSize: 45,
         alignSelf: "center",
         marginTop: 35,
         color: "white",
-        fontWeight: '300'
+        fontWeight: '300',
     },
     haveAccounttxt:{
         color: "white"
     },
     buttonAndText:{
         height: "20%",
-        marginHorizontal: 25,
+        marginHorizontal: 30,
         justifyContent: "center",
  
     },
@@ -90,12 +91,15 @@ const styles = StyleSheet.create({
     image:{
         position: "absolute",
          zIndex: -1,
+        // height: 730,
+        // width: 360,
         height: 730,
-        width: 360,
+        width: 399,
 
     },
     inputView:{
-        marginTop: "20%"
+        marginTop: "10%",
+        marginHorizontal: 5,
       }
 })
 

@@ -15,8 +15,8 @@ const Button = ({text, onPress, sty}) => {
 const styles = StyleSheet.create({
     button:{
         alignItems: "center",
-         borderRadius: 30,
-        //borderRadius: 5,
+        //borderRadius: 30,
+        borderRadius: 5,
         justifyContent: "center",
         height: "41%",
 

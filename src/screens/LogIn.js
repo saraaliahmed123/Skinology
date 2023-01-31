@@ -43,7 +43,7 @@ const LogIn = ({navigation}) => {
             </TouchableOpacity>
         </View>
         <Image style={styles.image}
-                source={require('../componenets/Picture17.png')}
+                source={require('../componenets/img5neww.png')}
         />
     </View>
     </SafeAreaView>
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     },
     buttonAndText:{
         height: "22%",
-        marginHorizontal: 25,
+        marginHorizontal: 30,
         justifyContent: "center",
         //marginBottom: 3
     },
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
         position: "absolute",
          zIndex: -1,
         height: 730,
-        width: 360,
+        width: 395,
 
     },
     input: {
@@ -100,7 +100,8 @@ const styles = StyleSheet.create({
         elevation: 20,
       },
       inputView:{
-        marginTop: "25%"
+        marginTop: "25%",
+        marginHorizontal: 5,
       }
 })
 
