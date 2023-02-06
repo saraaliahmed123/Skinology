@@ -20,6 +20,7 @@ import AgeScreen from './src/screens/AgeScreen';
 import ResultsPage from './src/screens/ResultsPage';
 
 import ProductPage from './src/screens/tab/ProductPage';
+import Camera from './src/screens/tab/Camera';
 import UpdatePage from './src/screens/tab/UpdatePage';
 
 const Main = () => {
@@ -69,6 +70,13 @@ const Main = () => {
           size={27} 
           color={focused ? "white" : "white"} />
           )
+        }}
+      />
+      <Tab.Screen 
+        name="Camera" 
+        component={Camera} 
+        options={{ 
+           tabBarButton: () => null,
         }}
       />
       <Tab.Screen 
