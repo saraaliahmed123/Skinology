@@ -18,7 +18,9 @@ import SkinConcernPage from './src/screens/SkinConcernPage';
 import GenderPage from './src/screens/GenderPage';
 import AgeScreen from './src/screens/AgeScreen';
 import ResultsPage from './src/screens/ResultsPage';
+
 import ProductPage from './src/screens/tab/ProductPage';
+import UpdatePage from './src/screens/tab/UpdatePage';
 
 const Main = () => {
   const Tab = createBottomTabNavigator();
@@ -81,6 +83,13 @@ const Main = () => {
             )
           }}
           />
+          <Tab.Screen 
+        name="UpdatePage" 
+        component={UpdatePage} 
+        options={{ 
+           tabBarButton: () => null,
+        }}
+      />
     </Tab.Navigator>
   );
 
