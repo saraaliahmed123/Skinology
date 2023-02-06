@@ -10,10 +10,10 @@ import LogIn from './src/screens/LogIn';
 import HomeScreen from './src/screens/tab/HomeScreen';
 import Search from './src/screens/tab/Search'
 import Account from './src/screens/tab/Account'
-import TermsConditions from './src/screens/temp/TermsConditions'
 import StartPage from './src/screens/StartPage';
 import SkinTypePage from './src/screens/SkinTypePage';
 import SkinConcernPage from './src/screens/SkinConcernPage';
+import GenderPage from './src/screens/GenderPage';
 
 const Main = () => {
   const Tab = createBottomTabNavigator();
@@ -72,6 +72,11 @@ export default function App() {
         <Stack.Screen 
           name='CreateAccount'
           component={CreateAccount}
+          options={{title: "SKINOLOGY"}}
+        />
+        <Stack.Screen 
+          name='GenderPage'
+          component={GenderPage}
           options={{title: "SKINOLOGY"}}
         />
       </Stack.Navigator>

@@ -4,14 +4,19 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import Button from '../componenets/Button';
 import Card from '../componenets/Card';
 import Heading from '../componenets/Heading';
+import { useRoute } from "@react-navigation/native"
 
 const SkinConcernPage = ({navigation}) => {
-    const [selectedCards, setSelectedCards] = useState([]);
+    const [skinConcern, setSkinConcern] = useState([]);
 
     const handleCardSelection = (selectedCard) => {
         console.log(selectedCard)
-        setSelectedCards([...selectedCards, selectedCard]);
+        setSkinConcern([...skinConcern, selectedCard]);
     }
+
+    const route = useRoute()
+    const skinType = route.params?.skinType
+
 
   return (
     <SafeAreaView>
@@ -33,9 +38,9 @@ const SkinConcernPage = ({navigation}) => {
         <View style={styles.buttonAndText}>
             <Button 
                 text={"Continue"}
-                // onPress={() => {
-                //     navigation.navigate("SkinConcernPage", { selectedCards });
-                // }}
+                onPress={() => {
+                    navigation.navigate("GenderPage", { skinType, skinConcern });
+                }}
                 sty={"#3D5744"}
             /> 
             <TouchableOpacity 

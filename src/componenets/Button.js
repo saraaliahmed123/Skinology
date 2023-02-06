@@ -1,13 +1,21 @@
-import React from 'react'
+import {React, useState} from 'react'
 import { TouchableOpacity, Text, StyleSheet } from 'react-native'
 
-const Button = ({text, onPress, sty}) => {
+const Button = ({text, onPress, sty, line, home}) => {
+  const [pressed, setPressed] = useState(false);
+  console.log(pressed)
   return (
     <TouchableOpacity 
-        style={[styles.button, {backgroundColor: sty}]}
-        onPress={onPress}
+        style={[styles.button, {backgroundColor: sty}, line ? !pressed ? {borderWidth: 3, borderColor: line} : {backgroundColor: line} : {borderWidth: 0}]}
+        onPress={() => {
+          setPressed(!pressed);
+          onPress ? onPress() : console.log("here")
+          //onPress();
+        }}
     > 
-        <Text style={sty !== "white" ? {color:"white"} : {color:"black"}} >{text}</Text>
+        <Text style={(sty !== "white" && sty !=="#ECECEE") ? {color:"white"} : home ? pressed ? {color: "white"} : {color: home} : {color:"black"}} >
+          {!pressed ? text : home ? "COMPLETED ROUTINE" : text}
+      </Text>
     </TouchableOpacity>
   )
 }
@@ -18,7 +26,9 @@ const styles = StyleSheet.create({
         //borderRadius: 30,
         borderRadius: 5,
         justifyContent: "center",
-        height: "41%",
+        // height: "41%",
+        height: 60,
+        // marginBottom: 5,
 
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 10 },
