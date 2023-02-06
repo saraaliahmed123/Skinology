@@ -7,11 +7,11 @@ import Card from '../componenets/Card';
 import Heading from '../componenets/Heading';
 
 const SkinTypePage = ({navigation}) => {
-    const [selectedCards, setSelectedCards] = useState([]);
+    const [skinType, setSkinType] = useState([]);
 
     const handleCardSelection = (selectedCard) => {
         console.log(selectedCard)
-        setSelectedCards([...selectedCards, selectedCard]);
+        setSkinType([...skinType, selectedCard]);
     }
 
   return (
@@ -20,22 +20,34 @@ const SkinTypePage = ({navigation}) => {
             <Heading width={"30%"}/>
         <View style={styles.contentViewheading}>
             <Text style={styles.heading}>What is your skin type?</Text>
+            <Text style={styles.hi}>You can select more than one</Text>
             <View style={styles.contentView}>
-
-            <Card img={"Combination"} onSelect={handleCardSelection} />
-            <Card img={"Normal"} onSelect={handleCardSelection} />
-            <Card img={"Sensitive"} onSelect={handleCardSelection} />
-            <Card img={"Oily"} onSelect={handleCardSelection} />
-            <Card img={"Dry"} onSelect={handleCardSelection} />
-            <Card img={"I don't know?"} onSelect={handleCardSelection} />
-                
+                <View style={styles.cardView}>
+                    <Card img={"Combination"} onSelect={handleCardSelection} />
+                </View>
+                <View style={styles.cardView}>
+                    <Card img={"Normal"} onSelect={handleCardSelection} />
+                </View>
+                <View style={styles.cardView}>
+                    <Card img={"Sensitive"} onSelect={handleCardSelection} />
+                </View>
+                <View style={styles.cardView}>
+                    <Card img={"Oily"} onSelect={handleCardSelection} />
+                </View>
+                <View style={styles.cardView}>
+                    <Card img={"Dry"} onSelect={handleCardSelection} />
+                </View>
+                <View style={styles.cardView}>
+                    <Card img={"I don't know?"} onSelect={handleCardSelection} />
+                </View>
+                    
             </View>
         </View>
         <View style={styles.buttonAndText}>
             <Button 
                 text={"Continue"}
                 onPress={() => {
-                    navigation.navigate("SkinConcernPage", { selectedCards });
+                    navigation.navigate("SkinConcernPage", { skinType });
                 }}
                 sty={"#3D5744"}
             /> 
@@ -78,15 +90,23 @@ const styles = StyleSheet.create({
         
     },
     contentViewheading:{
-        // marginBottom: "3%",
+         marginTop: "3%",
         marginHorizontal: 20,
         justifyContent: "center",
         alignItems: "center",
     },
     heading: {
-        fontSize: 28,
+        fontSize: 25,
         textAlign: "center",
-        fontWeight: '300'
+        fontWeight: '350'
+    },
+    hi:{
+        marginTop: 10,
+        color: "#686868",
+        fontSize: 10
+    },
+    cardView:{
+        marginHorizontal: 15
     }
 })
 

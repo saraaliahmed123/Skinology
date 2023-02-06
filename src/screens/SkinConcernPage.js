@@ -23,15 +23,30 @@ const SkinConcernPage = ({navigation}) => {
     <View style={styles.page}>
             <Heading width={"50%"}/>
         <View style={styles.contentViewheading}>
+            {/* <Image style={styles.image}
+                        source={require('../componenets/shampoo.png')}
+                /> */}
             <Text style={styles.heading}>What is your skin concern?</Text>
+            <Text style={styles.hi}>You can select more than one</Text>
             <View style={styles.contentView}>
-
-            <Card img={"Oil Control"} onSelect={handleCardSelection} />
-            <Card img={"Anti-aging"} onSelect={handleCardSelection} />
-            <Card img={"Pigmentation"} onSelect={handleCardSelection} />
-            <Card img={"Acne"} onSelect={handleCardSelection} />
-            <Card img={"Blackheads"} onSelect={handleCardSelection} />
-            <Card img={"Hydration"} onSelect={handleCardSelection} />
+                <View style={styles.cardView}>
+                    <Card img={"Oil Control"} onSelect={handleCardSelection} />
+                </View>
+                <View style={styles.cardView}>
+                    <Card img={"Anti-aging"} onSelect={handleCardSelection} />
+                </View>
+                <View style={styles.cardView}>
+                    <Card img={"Pigmentation"} onSelect={handleCardSelection} />
+                </View>
+                <View style={styles.cardView}>
+                    <Card img={"Acne"} onSelect={handleCardSelection} />
+                </View>
+                <View style={styles.cardView}>
+                    <Card img={"Blackheads"} onSelect={handleCardSelection} />
+                </View>
+                <View style={styles.cardView}>
+                    <Card img={"Hydration"} onSelect={handleCardSelection} />
+                </View>
                 
             </View>
         </View>
@@ -88,9 +103,22 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     heading: {
-        fontSize: 30,
+        fontSize: 25,
         textAlign: "center",
-        fontWeight: '300'
+        fontWeight: '350'
+    },
+    image:{
+        width: 45,
+        height: 50,
+       // margin: 15,
+    },
+    hi:{
+        marginTop: 10,
+        color: "#686868",
+        fontSize: 10
+    },
+    cardView:{
+        marginHorizontal: 15
     }
 })
 

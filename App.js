@@ -15,6 +15,7 @@ import SkinTypePage from './src/screens/SkinTypePage';
 import SkinConcernPage from './src/screens/SkinConcernPage';
 import GenderPage from './src/screens/GenderPage';
 import AgeScreen from './src/screens/AgeScreen';
+import ResultsPage from './src/screens/ResultsPage';
 
 const Main = () => {
   const Tab = createBottomTabNavigator();
@@ -78,6 +79,11 @@ export default function App() {
         <Stack.Screen 
           name='AgeScreen'
           component={AgeScreen}
+          options={{title: "SKINOLOGY"}}
+        />
+         <Stack.Screen 
+          name='ResultsPage'
+          component={ResultsPage}
           options={{title: "SKINOLOGY"}}
         />
         <Stack.Screen 
