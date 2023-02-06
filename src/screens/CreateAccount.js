@@ -14,6 +14,9 @@ const CreateAccount = ({navigation}) => {
     <SafeAreaView>
     <View style={styles.page}>
         <Text style={styles.heading}>SKINOLOGY</Text>
+            <Text style={styles.hi}>
+                Let's sign up, to save your progress
+            </Text>
         <View style={styles.inputView}>
 
             <InputBox 
@@ -44,7 +47,7 @@ const CreateAccount = ({navigation}) => {
         <View style={styles.buttonAndText}>
             <Button 
                 text={"CREATE ACCOUNT"}
-                onPress={() => {navigation.navigate("TermsConditions")}}
+                onPress={() => {navigation.navigate("Main")}}
                 sty={"#3D5744"}
             />
             <TouchableOpacity 
@@ -100,6 +103,10 @@ const styles = StyleSheet.create({
     inputView:{
         marginTop: "10%",
         marginHorizontal: 5,
+      },
+      hi:{
+        color: "white",
+        textAlign: "center"
       }
 })
 

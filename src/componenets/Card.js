@@ -32,7 +32,7 @@ const Card = ({ img, onSelect, noSelect }) => {
      disabled={noSelect}
       style={styles.card}
       onPress={() => {
-        if (!noSelect && !results)
+        if (!noSelect)
         {
         setSelected(!selected); 
         onSelect(img)

@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { AntDesign, MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from '@expo/vector-icons';
 
 import IndexScreen from './src/screens/IndexScreen';
 import CreateAccount from './src/screens/CreateAccount';
@@ -23,14 +25,54 @@ const Main = () => {
     <Tab.Navigator 
       initialRouteName='HomeScreen'
       screenOptions={{
+        headerShown: false,
+        tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: "#3D5744",
         },
+        tabBarStyle: {
+          backgroundColor: "#3D5744",
+          height: 65,
+          
+        },
       }}
     >
-      <Tab.Screen name="Search" component={Search} />
-      <Tab.Screen name="HomeScreen" component={HomeScreen} />
-      <Tab.Screen name="Account" component={Account} />
+      <Tab.Screen 
+        name="HomeScreen" 
+        component={HomeScreen} 
+        options={{ 
+          tabBarIcon: ({ focused  }) => (
+          <AntDesign 
+          name="home" 
+          size={27} 
+          color={focused ? "white" : "white"} />
+          )
+        }}
+        />
+        <Tab.Screen 
+        name="Search" 
+        component={Search} 
+        options={{ 
+          tabBarIcon: ({ focused  }) => (
+          <Ionicons 
+          name="ios-search" 
+          size={27} 
+          color={focused ? "white" : "white"} />
+          )
+        }}
+      />
+      <Tab.Screen 
+          name="Account" 
+          component={Account} 
+          options={{ 
+            tabBarIcon: ({ focused  }) => (
+            <MaterialCommunityIcons 
+            name="account-circle-outline" 
+            size={28} 
+            color={focused ? "white" : "white"} />
+            )
+          }}
+          />
     </Tab.Navigator>
   );
 
@@ -89,6 +131,11 @@ export default function App() {
         <Stack.Screen 
           name='CreateAccount'
           component={CreateAccount}
+          options={{title: "SKINOLOGY"}}
+        />
+        <Stack.Screen 
+          name='Main'
+          component={Main}
           options={{title: "SKINOLOGY"}}
         />
       </Stack.Navigator>
