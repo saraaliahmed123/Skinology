@@ -4,7 +4,12 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import Button from '../componenets/Button'
 import InputBox from '../componenets/InputBox'
 
+import {useUserContext} from '../context/UserContext';
+
 const CreateAccount = ({navigation}) => {
+
+    const {CreateAccount} = useUserContext()
+
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
     const [email, setEmail] = useState();
@@ -47,7 +52,10 @@ const CreateAccount = ({navigation}) => {
         <View style={styles.buttonAndText}>
             <Button 
                 text={"CREATE ACCOUNT"}
-                onPress={() => {navigation.navigate("Main")}}
+                onPress={() => {
+                    //navigation.navigate("Main")
+                    CreateAccount(firstName, lastName, email, password)
+                }}
                 sty={"#3D5744"}
             />
             <TouchableOpacity 

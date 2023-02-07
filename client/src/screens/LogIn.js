@@ -1,12 +1,23 @@
-import {React, useState} from 'react'
+import {React, useEffect, useState} from 'react'
 import { Image, View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Button from '../componenets/Button'
 import InputBox from '../componenets/InputBox'
+import { useUserContext } from '../context/UserContext'
 
 const LogIn = ({navigation}) => {
+
+    const {getAllUsers} = useUserContext()
+
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+
+    useEffect(() => {
+        const sub = () => {
+            getAllUsers();
+        }
+        sub()
+    }, [])
 
 
   return (

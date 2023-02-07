@@ -23,6 +23,8 @@ import ProductPage from './src/screens/tab/ProductPage';
 import Camera from './src/screens/tab/Camera';
 import UpdatePage from './src/screens/tab/UpdatePage';
 
+import {UserProvider} from './src/context/UserContext';
+
 const Main = () => {
   const Tab = createBottomTabNavigator();
   return (
@@ -106,6 +108,7 @@ const Main = () => {
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
+    <UserProvider>
     <NavigationContainer>
       <Stack.Navigator 
         initialRouteName='IndexScreen'
@@ -165,6 +168,7 @@ export default function App() {
         />
       </Stack.Navigator>
     </NavigationContainer>
+    </UserProvider>
   );
 }
 
