@@ -13,10 +13,28 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    lowercase: true,
+    minLength: 5
   },
   password: {
     type: String,
+    required: true
+  },
+  age: {
+    type: Number, 
+    min: 18, 
+    max: 65,
+  },
+  gender: {
+    type: String,
+  },
+  skinType: {
+    type: [String],
+    required: true
+  },
+  skinConcern: {
+    type: [String],
     required: true
   },
 });
