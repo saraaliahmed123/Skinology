@@ -1,4 +1,4 @@
-import {React, useState} from 'react'
+import {React, useEffect, useState} from 'react'
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useRoute } from "@react-navigation/native"
@@ -6,9 +6,28 @@ import Card from '../componenets/Card'
 import { Dimensions } from 'react-native'
 import Button from '../componenets/Button'
 import DayReminder from '../componenets/DayReminder'
+import { useUserContext } from '../context/UserContext'
+import { useRoutineContext } from '../context/RoutineContext'
 
 const ResultsPage = ({navigation}) => {
-    const [selected, setSelected] = useState([]);
+
+    const {information} = useUserContext()
+    const {createRoutine, routine, setWeekDays} = useRoutineContext()
+
+    useEffect(() => {
+        const sub = async () => {
+            const hi = await createRoutine();
+            // console.log(hi)
+        }
+        sub()
+    }, [])
+    
+    const [selected, setSelected] = useState();
+
+    // if(routine)
+    // {
+    //     console.log(routine)
+    // }
 
     const [days, setDays] = useState();
 
@@ -42,36 +61,50 @@ const ResultsPage = ({navigation}) => {
         }
     }
 
-    console.log(days);
+    ////console.log(days);
     
 
-    const route = useRoute()
-    const skinType = route.params?.skinType
+    // const route = useRoute()
+    // const skinType = route.params?.skinType
 
-    const skinConcern = route.params?.skinConcern
+    // const skinConcern = route.params?.skinConcern
 
-    const gender = route.params?.gender
+    // const gender = route.params?.gender
 
-    const age = route.params?.age
+    // const age = route.params?.age
 
   return (
     <SafeAreaView>
     <ScrollView>
-    <View style={styles.page}>
+    <View style={!selected ? [{height: Dimensions.get('window').height}, styles.page] :styles.page}>
         <View style={styles.skinType}>
             <View style={[styles.cards, {marginTop: 35}]}>
-                <Card/>
+                {information.skinType.map((item, key) => {
+                    return(
+                        <Card img={item} key={key} resultsPage={true}/>
+                    )
+                })}
+                {/* <Card img={"Hydration"}/>
                 <Text style={styles.plus}>+</Text>
-                <Card/>
+                <Card img={"Hydration"}/> */}
             </View>
             <View style={[styles.cards, {marginBottom: 15}]}>
-                <Text style={styles.plus}>Oily skin types could be quite struggling 
-                    as you may need to deal with acne and 
-                    breakout.</Text>
-                <Text style={styles.plus}>Normal skin types mean you experience
-                    fewer breakouts, have small pores, and 
-                    feature a slight shine on the 
-                    T-zone after a long day.</Text>
+                {
+                
+                routine ? 
+                routine[0].map((item, key) => {
+                    return(
+                        <Text key={key} style={styles.plus}>{item}</Text>
+                    )
+                })
+
+                :
+                <></>
+                
+                }
+
+                {/* <Text style={styles.plus}>h</Text>
+                <Text style={styles.plus}>h</Text> */}
             </View>
         </View>
 
@@ -83,13 +116,16 @@ const ResultsPage = ({navigation}) => {
                     <TouchableOpacity 
                         style={styles.card}
                         onPress={() => {
-                            setSelected("Cleanser"); 
+                            selected === "Cleanser" ? setSelected() : setSelected("Cleanser"); 
                         }}
                         
                         >
-                            <View style={styles.imgview}>
-                            <Image style={selected !== "Cleanser" ? styles.image : [styles.image,styles.imageSelected]}
-                               // source={images[img]}
+                            <View style={selected !== "Cleanser" ? styles.imgview : [styles.imgview,styles.imageSelected]}>
+                            <Image style={selected !== "Cleanser" ? styles.image : [styles.image,styles.imageSSelected]}
+                              source={
+                                {
+                                 uri: routine ? routine[1]["Cleanser"].image : "http://aceplumbers.co.uk/wp-content/uploads/2020/08/create-meme-white-square-white-square-white-background-png-white-background-png-500_492.jpg",
+                               }}
                             />
                             </View>
                             <Text style={styles.txt}>Cleanser</Text>
@@ -99,13 +135,16 @@ const ResultsPage = ({navigation}) => {
                     <TouchableOpacity 
                         style={styles.card}
                         onPress={() => {
-                            setSelected("Toner"); 
+                            selected === "Toner" ? setSelected() : setSelected("Toner"); 
                         }}
                         
                         >
-                            <View style={styles.imgview}>
-                            <Image style={selected !== "Toner" ? styles.image : [styles.image,styles.imageSelected]}
-                               // source={images[img]}
+                            <View style={selected !== "Toner" ? styles.imgview : [styles.imgview,styles.imageSelected]}>
+                            <Image style={selected !== "Toner" ? styles.image : [styles.image,styles.imageSSelected]}
+                               source={
+                                {
+                                 uri: routine ? routine[1]["Toner"].image : "http://aceplumbers.co.uk/wp-content/uploads/2020/08/create-meme-white-square-white-square-white-background-png-white-background-png-500_492.jpg",
+                               }}
                             />
                             </View>
                             <Text style={styles.txt}>Toner</Text>
@@ -115,13 +154,16 @@ const ResultsPage = ({navigation}) => {
                     <TouchableOpacity 
                         style={styles.card}
                         onPress={() => {
-                            setSelected("Serum"); 
+                            selected === "Serum" ? setSelected() : setSelected("Serum"); 
                         }}
                         
                         >
-                            <View style={styles.imgview}>
-                            <Image style={selected !== "Serum" ? styles.image : [styles.image,styles.imageSelected]}
-                               // source={images[img]}
+                            <View style={selected !== "Serum" ? styles.imgview : [styles.imgview,styles.imageSelected]}>
+                            <Image style={selected !== "Serum" ? styles.image : [styles.image,styles.imageSSelected]}
+                              source={
+                                {
+                                 uri: routine ? routine[1]["Serum"].image : "http://aceplumbers.co.uk/wp-content/uploads/2020/08/create-meme-white-square-white-square-white-background-png-white-background-png-500_492.jpg",
+                               }}
                             />
                             </View>
                             <Text style={styles.txt}>Serum</Text>
@@ -131,13 +173,16 @@ const ResultsPage = ({navigation}) => {
                     <TouchableOpacity 
                         style={styles.card}
                         onPress={() => {
-                            setSelected("Moisturizer"); 
+                            selected === "Moisturizer" ? setSelected() : setSelected("Moisturizer"); 
                         }}
                         
                         >
-                            <View style={styles.imgview}>
-                            <Image style={selected !== "Moisturizer" ? styles.image : [styles.image,styles.imageSelected]}
-                               // source={images[img]}
+                            <View style={selected !== "Moisturizer" ? styles.imgview : [styles.imgview,styles.imageSelected]}>
+                            <Image style={selected !== "Moisturizer" ? styles.image : [styles.image,styles.imageSSelected]}
+                               source={
+                               {
+                                uri: routine ? routine[1]["Moisturizer"].image : "http://aceplumbers.co.uk/wp-content/uploads/2020/08/create-meme-white-square-white-square-white-background-png-white-background-png-500_492.jpg",
+                              }}
                             />
                             </View>
                             <Text style={styles.txt}>Moisturizer</Text>
@@ -147,23 +192,58 @@ const ResultsPage = ({navigation}) => {
                     <TouchableOpacity 
                         style={styles.card}
                         onPress={() => {
-                            setSelected("Suncream"); 
+                            selected === "Suncream" ? setSelected() : setSelected("Suncream"); 
                         }}
                         
                         >
-                            <View style={styles.imgview}>
-                            <Image style={selected !== "Suncream" ? styles.image : [styles.image,styles.imageSelected]}
-                               // source={images[img]}
+                            <View style={selected !== "Suncream" ? styles.imgview : [styles.imgview,styles.imageSelected]}>
+                            <Image style={selected !== "Suncream" ? styles.image : [styles.image,styles.imageSSelected]}
+                               source={
+                               {
+                                uri: routine ? routine[1]["Suncream"].image : "http://aceplumbers.co.uk/wp-content/uploads/2020/08/create-meme-white-square-white-square-white-background-png-white-background-png-500_492.jpg",
+                              }}
+                              // source={"https://media.static-allbeauty.com/image/product/1/1600/1186659-murad-spf-environmental-shield-city-skin-age-defense-broad-spectrum-spf50-50ml.jpg"}
                             />
                             </View>
                             <Text style={styles.txt}>Suncream</Text>
                         </TouchableOpacity>
                 </View>
             </ScrollView>
-
-            <View>
-
+            
+            {
+            selected && routine ?
+            <View> 
+                <Text style={styles.heading}>Your Product</Text>
+                <View style={styles.itemHeadingView}>
+                    <Text style={styles.itemHeadingViewtxt}>{routine[1][selected].name}</Text>
+                </View>
+                <View style={styles.itemView}>
+                    <Image style={styles.productImage}
+                        source={{
+                            uri: routine[1][selected].image
+                        }}
+                    />
+                </View>
+                <View style={styles.skinTypeView}>
+                    <Text style={styles.skinTypeHeadingPopup}>SKIN TYPES:</Text>
+                </View>
+                <View style={styles.contentView}>
+                    <View style={styles.cardView}>
+                        <Card img={selected === "Serum" ? routine[1][selected].skinConcern : routine[1][selected].skinType} noSelect={true}/>
+                    </View>
+                </View>
+                <View style={styles.skinTypeView}>
+                    <Text style={styles.skinTypeHeadingPopup}>INGREDIENTS:</Text>
+                </View>
+                <View style={styles.ingredients}>
+                    <ScrollView>
+                        <Text>{routine[1][selected].ingredients}</Text>
+                    </ScrollView>
+                </View>
             </View>
+            :
+            <></>
+            }
 
             <View style={styles.week}>
                 <DayReminder txt={"Mon"} onSelect={handleDaySelection}/>
@@ -174,14 +254,19 @@ const ResultsPage = ({navigation}) => {
                 <DayReminder txt={"Sat"} onSelect={handleDaySelection}/>
                 <DayReminder txt={"Sun"} onSelect={handleDaySelection}/>
             </View>
-        </View>
+        
         
         <View style={styles.buttonAndText}>
             <Button 
                 text={"SAVE ROUTINE"}
-                onPress={() => {navigation.navigate("CreateAccount")}}
+                onPress={() => {
+                    setWeekDays(days)
+                    navigation.navigate("CreateAccount")
+                }}
                 sty={"#3D5744"}
             />
+        </View>
+
         </View>
 
     </View>
@@ -192,7 +277,7 @@ const ResultsPage = ({navigation}) => {
 
 const styles = StyleSheet.create({
     page:{
-         height: Dimensions.get('window').height,
+        //  height: Dimensions.get('window').height,
         flexDirection: "column",
        //  justifyContent: "space-between",
         backgroundColor: "#ECECEE",
@@ -222,8 +307,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         // borderWidth: 0.5,
         position: "absolute",
-        bottom: "5%",
-        width: "83%"
+        bottom: "3.5%",
+        width: "83%",
     },
     routine:{
          height: 150
@@ -241,7 +326,8 @@ const styles = StyleSheet.create({
         // borderWidth: 0.5,
         justifyContent: "center",
         alignItems: "center",
-        marginVertical: 10
+        marginBottom: "35%",
+        marginTop: "10%"
     },
     card: {
         width: 100,
@@ -254,11 +340,10 @@ const styles = StyleSheet.create({
         // borderWidth:0.5
       },
       image:{
-        width: "100%",
-        height: "100%",
+        width: "90%",
+        height: "90%",
         borderRadius: 7,
         alignSelf: "center",
-        opacity: 0.9,
       },
       imgview:{
         width: "90%",
@@ -266,6 +351,7 @@ const styles = StyleSheet.create({
         borderRadius: 7,
         // backgroundColor: "black"
         backgroundColor: "white",
+        justifyContent: "center"
         
        // borderWidth:0.5
       },
@@ -273,12 +359,67 @@ const styles = StyleSheet.create({
         // opacity: 0.4,
         borderColor: "#3D5744",
         borderWidth: 4,
-        backgroundColor: "#3D5744",
+        // backgroundColor: "#3D5744",
       },
       txt:{
         textAlign: "center",
         marginTop: 5,
-      }
+      },
+      itemHeadingView:{
+        marginHorizontal: 30,
+        marginTop: 10,
+        alignItems: "center"
+      },
+      itemView:{
+        backgroundColor: "white",
+        marginHorizontal: 30,
+        marginTop: 30,
+        height: 250,
+        borderRadius: 10,
+        alignItems: "center"
+      },
+      skinTypeView:{
+        marginHorizontal: 30,
+        backgroundColor: "#3D5744",
+        borderRadius: 5,
+        padding: 2,
+        marginTop: 30
+      },
+      skinTypeHeadingPopup:{
+        marginLeft: 5,
+        color: "white",
+        fontSize: 13
+      },
+      contentView:{
+        flexDirection: "row",
+        flexWrap: "wrap",
+        width: 300,
+        justifyContent: "center",
+        alignItems: "center",
+        marginHorizontal: 20,
+        // marginTop: 5,
+      },
+      cardView:{
+        marginHorizontal: 15
+      },
+      productImage:{
+        width: "80%",
+        height: 230,
+        marginTop: 10
+      },
+      ingredients:{
+        marginHorizontal: 30,
+        marginTop: 25,
+      },
+      itemHeadingViewtxt:{
+        textAlign: "center"
+      },
+      imageSSelected:{
+        opacity: 0.95,
+        backgroundColor: "black",
+        width: "100%",
+        height: "100%",
+      },
 
 })
 

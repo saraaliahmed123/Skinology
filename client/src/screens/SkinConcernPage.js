@@ -4,19 +4,43 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import Button from '../componenets/Button';
 import Card from '../componenets/Card';
 import Heading from '../componenets/Heading';
-import { useRoute } from "@react-navigation/native"
+import { useRoute } from "@react-navigation/native";
+import { useUserContext } from '../context/UserContext';
 
 const SkinConcernPage = ({navigation}) => {
-    const [skinConcern, setSkinConcern] = useState([]);
+    const {information, setInformation} = useUserContext();
+
+    const [skinConcern, setSkinConcern] = useState();
 
     const handleCardSelection = (selectedCard) => {
-        console.log(selectedCard)
-        setSkinConcern([...skinConcern, selectedCard]);
+        let arr = [];
+        let bo = false;
+        if (skinConcern) {
+            skinConcern.forEach((item) => {
+                if (item !== selectedCard) {
+                arr.push(item);
+                }
+                else
+                {
+                    bo = true;
+                }
+            });
+            if (bo === false) {
+                arr.push(selectedCard)
+            }
+            if (skinConcern.length === 0) {
+                setSkinConcern([selectedCard]); 
+            }
+            else {
+                setSkinConcern(arr);
+            }
+        } else {
+          arr.push(selectedCard);
+          setSkinConcern(arr);
+        }
     }
 
-    const route = useRoute()
-    const skinType = route.params?.skinType
-
+    // console.log(skinConcern)
 
   return (
     <SafeAreaView>
@@ -54,16 +78,19 @@ const SkinConcernPage = ({navigation}) => {
             <Button 
                 text={"Continue"}
                 onPress={() => {
-                    navigation.navigate("GenderPage", { skinType, skinConcern });
+                    setInformation((prev) => {
+                        return {...prev, "skinConcern": skinConcern}
+                })
+                    navigation.navigate("GenderPage");
                 }}
                 sty={"#3D5744"}
             /> 
-            <TouchableOpacity 
+            {/* <TouchableOpacity 
                 style={styles.haveAccount}
                 onPress={() => {navigation.navigate("CreateAccount")}}
             >
                 <Text>Skip</Text>
-            </TouchableOpacity> 
+            </TouchableOpacity>  */}
         </View>
     </View>
     </SafeAreaView>

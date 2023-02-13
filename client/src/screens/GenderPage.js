@@ -4,14 +4,11 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import Button from '../componenets/Button';
 import Heading from '../componenets/Heading';
 import { useRoute } from "@react-navigation/native"
+import { useUserContext } from '../context/UserContext';
 
 const GenderPage = ({navigation}) => {
 
-    const route = useRoute()
-    const skinType = route.params?.skinType
-
-    const skinConcern = route.params?.skinConcern
-
+    const {information, setInformation} = useUserContext()
 
   return (
     <SafeAreaView>
@@ -27,7 +24,10 @@ const GenderPage = ({navigation}) => {
             <Button 
                 text={"Female"}
                 onPress={() => {
-                    navigation.navigate("AgeScreen", { skinConcern, skinType, gender: "Female" });
+                    setInformation((prev) => {
+                        return {...prev, "gender": "Female"}
+                    })
+                    navigation.navigate("AgeScreen");
                 }}
                 sty={"#ECECEE"}z
             /> 
@@ -37,7 +37,10 @@ const GenderPage = ({navigation}) => {
             <Button 
                 text={"Male"}
                 onPress={() => {
-                    navigation.navigate("AgeScreen", { skinConcern, skinType });
+                    setInformation((prev) => {
+                        return {...prev, "gender": "Male"}
+                    })
+                    navigation.navigate("AgeScreen");
                 }}
                 sty={"#ECECEE"}
             /> 
@@ -46,7 +49,10 @@ const GenderPage = ({navigation}) => {
             <Button 
                 text={"Non-binary"}
                 onPress={() => {
-                    navigation.navigate("AgeScreen", { skinConcern, skinType });
+                    setInformation((prev) => {
+                        return {...prev, "gender": "Non-binary"}
+                    })
+                    navigation.navigate("AgeScreen");
                 }}
                 sty={"#ECECEE"}
             /> 
@@ -55,7 +61,10 @@ const GenderPage = ({navigation}) => {
             <Button 
                 text={"Prefer not to say"}
                 onPress={() => {
-                    navigation.navigate("AgeScreen", { skinConcern, skinType });
+                    setInformation((prev) => {
+                        return {...prev, "gender": "Prefer not to say"}
+                    })
+                    navigation.navigate("AgeScreen");
                 }}
                 sty={"#ECECEE"}
             /> 

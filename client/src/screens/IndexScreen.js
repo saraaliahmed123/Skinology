@@ -1,9 +1,19 @@
-import React from 'react'
+import {React, useEffect} from 'react'
 import { Image, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Button from '../componenets/Button'
+import { useUserContext } from '../context/UserContext'
 
 const IndexScreen = ({navigation}) => {
+    const {getAllUsers} = useUserContext()
+
+    useEffect(() => {
+        const sub = async () => {
+            await getAllUsers("63e7b5bb31ee009c4f670da8");
+        }
+        sub()
+    }, [])
+
   return (
     <SafeAreaView>
     <View style={styles.page}>

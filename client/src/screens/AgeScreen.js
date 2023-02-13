@@ -5,17 +5,11 @@ import Button from '../componenets/Button';
 import Heading from '../componenets/Heading';
 import { useRoute } from "@react-navigation/native"
 import InputBox from '../componenets/InputBox';
+import { useUserContext } from '../context/UserContext';
 
 const AgeScreen = ({navigation}) => {
 
-    const route = useRoute()
-    const skinType = route.params?.skinType
-
-    const skinConcern = route.params?.skinConcern
-
-    const gender = route.params?.gender
-
-    console.log(gender)
+    const {setInformation, information} = useUserContext()
 
     const [age, setAge] = useState()
 
@@ -43,7 +37,12 @@ const AgeScreen = ({navigation}) => {
             <Button 
                 text={"Create A Routine"}
                 onPress={() => {
-                    navigation.navigate("ResultsPage", { skinType, skinConcern, gender, age });
+                    if (age){
+                        setInformation((prev) => {
+                            return {...prev, "age": age }
+                        })
+                        navigation.navigate("ResultsPage");
+                    }
                 }}
                 sty={"#3D5744"}
             /> 

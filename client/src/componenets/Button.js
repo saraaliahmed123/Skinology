@@ -1,15 +1,36 @@
 import {React, useState} from 'react'
 import { TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { useRecordContext } from '../context/RecordContext';
 
-const Button = ({text, onPress, sty, line, home}) => {
+const Button = ({text, onPress, sty, line, home, createRecord}) => {
+  const {images} = useRecordContext()
+
   const [pressed, setPressed] = useState(false);
-  // console.log(pressed)
+  // //console.log(pressed)
   return (
     <TouchableOpacity 
         style={[styles.button, {backgroundColor: sty}, line ? !pressed ? {borderWidth: 3, borderColor: line} : {backgroundColor: line} : {borderWidth: 0}]}
         onPress={() => {
-          setPressed(!pressed);
-          onPress ? onPress() : console.log("here")
+          if (createRecord)
+          {
+            if (home && images)
+            {
+              if (images.length > 0)
+              {
+                setPressed(!pressed);
+                onPress ? onPress() : console.log("here")
+              }
+            }
+            if (home && !images)
+            {
+              alert("Take a picture to save with your record")
+            }
+          }
+          else
+          {
+            onPress ? onPress() : console.log("here")
+          }
+          
           //onPress();
         }}
     > 

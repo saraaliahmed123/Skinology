@@ -1,4 +1,4 @@
-import {React, useState} from 'react'
+import {React, useState, useEffect, useRef } from 'react'
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { eachWeekOfInterval, subDays, addDays, eachDayOfInterval, format } from 'date-fns';
@@ -10,6 +10,10 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import Button from '../../componenets/Button'
 import { AntDesign } from '@expo/vector-icons';
+import { useUserContext } from '../../context/UserContext';
+import { useRoutineContext } from '../../context/RoutineContext';
+import { useRecordContext } from '../../context/RecordContext';
+import ConfettiCannon from 'react-native-confetti-cannon';
 
 const dates = eachWeekOfInterval(
   {
@@ -34,32 +38,124 @@ const dates = eachWeekOfInterval(
 
 const month = format(new Date(), 'MMMM')
 const year = format(new Date(), 'uu')
+const time = format(new Date(), 'a')
+console.log(time)
+
+const skinFacts = {
+  "1": "Moisturizer Is the Best Defense Against Dry Skin",
+  "2":  "Wearing Sunscreen Daily Protects Against Aging",
+  "3": "Exfoliating Leaves Skin Smooth",
+  "4": "A Lack of Sleep Can Affect Your Skin",
+  "5": "Touching Your Skin Leads to Breakouts",
+  "6": "Alcohol Dehydrates the Skin",
+  "7": "We shed thousands of skin cells each minute",
+  "8": "Your Skin Can Respond Negatively to Stress, Just Like Your Mind"
+}
 
 const HomeScreen = ({navigation}) => {
 
-  const [selected, setSelected] = useState([]);
+  const {user} = useUserContext()
+  const {routine} = useRoutineContext()
+  const {CreateRecord, todaysRecords, getTodaysRecords, getRecords, records} = useRecordContext()
+  // const [skinFacts, setSkinFacts] = useState()
+
+  useEffect(() => {
+    const sub = async () => {
+      const here = await getRecords()
+      const sup = await getTodaysRecords()
+      // const skin = await getSkinFacts()
+      // setSkinFacts(skin)
+      // if (here && sup)
+      // {
+      //   console.log(here)
+      //   console.log(sup)
+      // }
+    }
+    sub()
+  }, [user])
+
+  const [selected, setSelected] = useState();
 
     const handleCardSelection = (selectedCard) => {
-        setSelected([...selected, selectedCard]);
+      let arr = [];
+      let bo = false;
+      if (selected) {
+          selected.forEach((item) => {
+              if (item !== selectedCard) {
+              arr.push(item);
+              }
+              else
+              {
+                  bo = true;
+              }
+          });
+          if (bo === false) {
+              arr.push(selectedCard)
+          }
+          if (selected.length === 0) {
+              setSelected([selectedCard]); 
+          }
+          else {
+              setSelected(arr);
+          }
+      } else {
+        arr.push(selectedCard);
+        setSelected(arr);
+      }
+    }
+
+    const here = (dots) => {
+      for(let i = 0; i<dots; i++)
+      {
+        return(
+          <View style={{width: 6, height: 6, borderRadius: 3 ,backgroundColor: "purple"}}></View>
+        )
+      }
     }
 
   const displayCalendar = () => {
     return (
     <View style={styles.calendar}>
-    <PagerView  initialPage={1}>
+      <PagerView initialPage={1}
+      >
       {
       dates.map((week, i) => {
         return (
-          <View key={i} >
+          <View key={i} collapsable={false}>
             <View style={styles.row}>
               {week.map((day, key) => {
                 const txt = format(day, 'EEE')
+                let exist;
+                let dots = 0;
+                if (records)
+                {
+                  exist = records.filter(element => new Date(element.date).toDateString() === day.toDateString());
+                  dots = exist.length
+                  // console.log(dots)
+                }
                 return(
                   <View key={key} style={styles.day}>
                     <Text style={day.toDateString() === new Date().toDateString() ? {color: "black", fontWeight: "bold"} : {color: "grey"}} >{txt}</Text>
                     <View style={day.toDateString() === new Date().toDateString() ? styles.selected : styles.notSelected} >
                       <Text style={day.toDateString() === new Date().toDateString() ? {color: "white"} : {color: "black"}}>{day.getDate()}</Text>
                     </View>
+
+                  <View style={{flexDirection: "row"}}>
+                    {
+                      exist ?
+                       exist.map((item, key) => {
+                        return(
+                          <View key={key}style={{width: 6, height: 6, borderRadius: 3 ,backgroundColor: "#993F3F", margin: 1.5, marginTop: 7}}></View>
+                        )
+                       })
+                      :
+                      <></>
+                      
+                    }
+      
+                    </View>
+
+
                   </View>
                 )
               })}
@@ -80,7 +176,7 @@ const HomeScreen = ({navigation}) => {
         <View style={styles.morningHeaderView}>
           <View style={styles.buttonView}>
               <TouchableOpacity style={styles.button} onPress={()=> {
-                navigation.navigate("Camera")
+                navigation.navigate("CameraPage", {day: "morning"})
               }}>
                 <AntDesign name="camerao" size={20} color="white" />
               </TouchableOpacity>
@@ -93,29 +189,33 @@ const HomeScreen = ({navigation}) => {
         {/* <Text>To-dos:</Text> */}
         <ScrollView horizontal={true} style={styles.scroll}>
             <View style={styles.routine}>
-                <Card img={"Cleanser"} onSelect={handleCardSelection}/>
+                <Card img={"Cleanser"} onSelect={handleCardSelection} homePage={routine ? true : false}/>
             </View>
             <View style={styles.routine}>
-                <Card img={"Toner"} onSelect={handleCardSelection}/>
+                <Card img={"Toner"} onSelect={handleCardSelection} homePage={routine ? true : false}/>
             </View>
             <View style={styles.routine}>
-                <Card img={"Serum"} onSelect={handleCardSelection}/>
+                <Card img={"Serum"} onSelect={handleCardSelection} homePage={routine ? true : false}/>
             </View>
             <View style={styles.routine}>
-                <Card img={"Moisturizer"} onSelect={handleCardSelection}/>
+                <Card img={"Moisturizer"} onSelect={handleCardSelection} homePage={routine ? true : false}/>
             </View>
             <View style={styles.routine}>
-                <Card img={"Sun Cream"} onSelect={handleCardSelection}/>
+                <Card img={"Suncream"} onSelect={handleCardSelection} homePage={routine ? true : false}/>
             </View>
             </ScrollView>
       </View>
       <View style={styles.routineButtonView}>
             <Button 
               text={"COMPLETE ROUTINE"}
-              //onPress={() => {navigation.navigate("Main")}}
+              onPress={async () => {
+                const here = await CreateRecord("Morning", selected)
+                // console.log(here)
+              }}
               sty={"white"}
               line={"#3D5744"}
               home={"#3D5744"}
+              createRecord={true}
             />
         </View>
       </View>
@@ -129,7 +229,7 @@ const HomeScreen = ({navigation}) => {
           <View style={styles.morningHeaderView}>
             <View style={styles.buttonView}>
               <TouchableOpacity style={styles.button} onPress={()=> {
-                navigation.navigate("Camera")
+                navigation.navigate("CameraPage", {day: "night"})
               }}>
                 <AntDesign name="camerao" size={20} color="white" />
               </TouchableOpacity>
@@ -141,33 +241,95 @@ const HomeScreen = ({navigation}) => {
           </View>
           <ScrollView horizontal={true} style={styles.scroll}>
               <View style={styles.routine}>
-                  <Card img={"Cleanser"} onSelect={handleCardSelection}/>
+                  <Card img={"Cleanser"} onSelect={handleCardSelection} homePage={routine ? true : false}/>
               </View>
               <View style={styles.routine}>
-                  <Card img={"Toner"} onSelect={handleCardSelection}/>
+                  <Card img={"Toner"} onSelect={handleCardSelection} homePage={routine ? true : false}/>
               </View>
               <View style={styles.routine}>
-                  <Card img={"Serum"} onSelect={handleCardSelection}/>
+                  <Card img={"Serum"} onSelect={handleCardSelection} homePage={routine ? true : false}/>
               </View>
               <View style={styles.routine}>
-                  <Card img={"Moisturizer"} onSelect={handleCardSelection}/>
+                  <Card img={"Moisturizer"} onSelect={handleCardSelection} homePage={routine ? true : false}/>
               </View>
               <View style={styles.routine}>
-                  <Card img={"Sun Cream"} onSelect={handleCardSelection}/>
+                  <Card img={"Suncream"} onSelect={handleCardSelection} homePage={routine ? true : false}/>
               </View>
               </ScrollView>
         </View>
         <View style={styles.routineButtonView}>
             <Button 
               text={"COMPLETED ROUTINE"}
-              //onPress={() => {navigation.navigate("Main")}}
+              onPress={async () => {
+                const here = await CreateRecord("Night", selected)
+                // console.log(here)
+              }}
               sty={"white"}
               line={"#3D5744"}
               home={"#3D5744"}
+              createRecord={true}
             />
         </View>
       </View>
     )
+    }
+
+    const routinesExist = ()=> {
+      if (todaysRecords.length === 1)
+        {
+          return (
+              <View>
+                <View style={styles.routineBox}>
+                  {displayNightRoutine()}
+                </View>
+            </View>
+          )
+        }
+        else if (todaysRecords.length === 2)
+        {
+          return (
+            <View style={{justifyContent: "center", alignItems: "center", marginTop: 30}}>
+              <Text style={[styles.heading, {textAlign: "center"}]}>Today's Routines have been completed!</Text> 
+                {/* <ConfettiCannon count={100} origin={{x: -10, y: 10}} /> */}
+            </View>
+          )
+        }
+    }
+
+    const showRoutine = () => {
+      if (todaysRecords)
+      {
+        return(
+          <View>
+            {routinesExist()}
+          </View>
+        )
+      }
+      else
+      {
+        return(
+          <View>
+            <View style={styles.routineBox}>
+            {displayMonringRoutine()}
+            </View>
+            <View style={styles.routineBox}>
+            {displayNightRoutine()}
+            </View>
+          </View>
+        )
+      }
+    }
+
+    const showConfetti = () => {
+      if (todaysRecords)
+      {
+        if (todaysRecords.length === 2)
+        {
+          return(
+            <ConfettiCannon count={200} origin={{x: -10, y: 10}} />
+          )
+        }
+      }
     }
 
   return (
@@ -178,8 +340,8 @@ const HomeScreen = ({navigation}) => {
           <Text style={styles.topDate}>{new Date().toDateString()}</Text>
           <View style={styles.topExtra}>
             <View style={styles.headingView}>
-              <Text style={styles.heading}>Good morning,</Text> 
-              <Text style={[styles.heading, {fontWeight: "bold"}]}>Sara</Text> 
+              <Text style={styles.heading}>{time === "PM" ? "Good afternoon," : "Good morning,"}</Text> 
+              <Text style={[styles.heading, {fontWeight: "bold"}]}>{user.firstName}</Text> 
             </View>
             <View style={styles.imageView}>
               <Image style={styles.image}
@@ -190,17 +352,20 @@ const HomeScreen = ({navigation}) => {
         </View>
 
       <View style={styles.calendarArrow}>
-        <MaterialIcons name="arrow-back-ios" size={20} color="black" style={{alignSelf: "center", width: 18}}/>
+        <TouchableOpacity style={{alignSelf: "center", width: 18}} >
+          <MaterialIcons name="arrow-back-ios" size={20} color="black" />
+        </TouchableOpacity>
         {displayCalendar()}
-        <MaterialIcons name="arrow-forward-ios" size={20} color="black" style={{alignSelf: "center", width: 32}}/>
+        <TouchableOpacity style={{alignSelf: "center", width: 32}} onPress={() => {
+          setPage((prev) => {
+            return prev+1
+          })
+        }}>
+        <MaterialIcons name="arrow-forward-ios" size={20} color="black"/>
+        </TouchableOpacity>
       </View>
 
-        <View style={styles.routineBox}>
-        {displayMonringRoutine()}
-        </View>
-        <View style={styles.routineBox}>
-        {displayNightRoutine()}
-        </View>
+       {showRoutine()}
 
 
         <View style={styles.skinLog}>
@@ -208,28 +373,16 @@ const HomeScreen = ({navigation}) => {
                   source={require('../../componenets/skinfeeling.jpg')}
             /> 
               <View style={styles.skinLogContent}>
-                  <Text style={styles.skinDailyLog}>Skin Daily Log</Text>
-                  <Text style={styles.question}>How is your skin feedling today?</Text>
+                  <Text style={styles.skinDailyLog}>Daily Skin Fact</Text>
+                  <Text style={styles.question}>This is your daily skin fact...</Text>
                   <View style={styles.emotions}>
-                    <TouchableOpacity style={styles.emotion}>
-                      <Text>Awesome</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.emotion}>
-                      <Text>Good</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.emotion}>
-                      <Text>Okay</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.emotion}>
-                      <Text>Not so good</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.emotion}>
-                      <Text>Awful</Text>
-                    </TouchableOpacity>
+                    <Text style={styles.emotionsTxt}>"{skinFacts[Math.floor(Math.random() * 8)]}"</Text>
                   </View>
               </View>
 
         </View>
+
+        {showConfetti()}
 
 
 
@@ -309,7 +462,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-    margin: 5
+    marginHorizontal: 25,
+    marginTop: 15,
+    marginBottom: 10,
+    // borderWidth: 0.5
   },
   emotion:{
     borderWidth: 0.5,
@@ -333,7 +489,9 @@ const styles = StyleSheet.create({
   },
   day:{
     alignItems: "center",
-    margin: 10,
+    marginHorizontal: 10,
+    marginTop: 10,
+    marginBottom: 6
     // borderWidth:0.5
   },
   calendar:{
@@ -475,6 +633,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center"
+  },
+  emotionsTxt:{
+    fontStyle: 'italic',
+    fontSize: 20,
+    textAlign: "center"
   }
 
 })

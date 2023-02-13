@@ -5,14 +5,42 @@ import { Ionicons } from '@expo/vector-icons';
 import Button from '../componenets/Button';
 import Card from '../componenets/Card';
 import Heading from '../componenets/Heading';
+import { useUserContext } from '../context/UserContext';
 
 const SkinTypePage = ({navigation}) => {
-    const [skinType, setSkinType] = useState([]);
+    const {setInformation} = useUserContext()
+
+    const [skinType, setSkinType] = useState();
 
     const handleCardSelection = (selectedCard) => {
-        console.log(selectedCard)
-        setSkinType([...skinType, selectedCard]);
+        let arr = [];
+        let bo = false;
+        if (skinType) {
+            skinType.forEach((item) => {
+                if (item !== selectedCard) {
+                arr.push(item);
+                }
+                else
+                {
+                    bo = true;
+                }
+            });
+            if (bo === false) {
+                arr.push(selectedCard)
+            }
+            if (skinType.length === 0) {
+                setSkinType([selectedCard]); 
+            }
+            else {
+                setSkinType(arr);
+            }
+        } else {
+          arr.push(selectedCard);
+          setSkinType(arr);
+        }
     }
+
+    // console.log(skinType)
 
   return (
     <SafeAreaView>
@@ -47,16 +75,17 @@ const SkinTypePage = ({navigation}) => {
             <Button 
                 text={"Continue"}
                 onPress={() => {
-                    navigation.navigate("SkinConcernPage", { skinType });
+                    setInformation({ "skinType" : skinType })
+                    navigation.navigate("SkinConcernPage");
                 }}
                 sty={"#3D5744"}
             /> 
-            <TouchableOpacity 
+            {/* <TouchableOpacity 
                 style={styles.haveAccount}
                 onPress={() => {navigation.navigate("CreateAccount")}}
             >
                 <Text>Skip</Text>
-            </TouchableOpacity> 
+            </TouchableOpacity>  */}
         </View>
     </View>
     </SafeAreaView>

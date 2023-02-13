@@ -1,31 +1,11 @@
 import {React, useState} from 'react'
 import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native'
+import { useRoutineContext } from '../context/RoutineContext'
 
 
-const images = {
-  // "Combination": require('../componenets/skintype3.jpg'),
-  // "Oily": require('../componenets/skintype4.png'),
-  // "Dry": require('../componenets/skintype1.png'),
-  // "Normal": require('../componenets/skintype2.jpg'),
-  // "Sensitive": require('../componenets/skintype5.jpg'),
-  // "I don't know?": require('../componenets/skintype6.png'),
-
-  // "Combination": require('../componenets/combination.png'),
-  // "Oily": require('../componenets/oily.png'),
-  // "Dry": require('../componenets/dry.png'),
-  // "Normal": require('../componenets/normal.png'),
-  // "Sensitive": require('../componenets/sensitive-skin.png'),
-  // "I don't know?": require('../componenets/skintype6.png'),
-
-  // "Combination": require('../componenets/combination.png'),
-  // "Oily": require('../componenets/dry3.png'),
-  // "Dry": require('../componenets/skin.png'),
-  // "Normal": require('../componenets/skin.png'),
-  // "Sensitive": require('../componenets/sensitive-skin.png'),
-  // "I don't know?": require('../componenets/skintype6.png'),
-};
-
-const Card = ({ img, onSelect, noSelect }) => {
+const Card = ({ img, onSelect, noSelect, resultsPage, homePage }) => {
+  const {routine} = useRoutineContext()
+  
   const [selected, setSelected] = useState(false);
   return (
     <TouchableOpacity 
@@ -34,18 +14,21 @@ const Card = ({ img, onSelect, noSelect }) => {
       onPress={() => {
         if (!noSelect)
         {
-        setSelected(!selected); 
-        onSelect(img)
+          setSelected(!selected); 
+          onSelect(img)
+          // console.log(selected)
         }
       }}
       
       >
-        <View style={styles.imgview}>
-          <Image style={!selected ? styles.image : noSelect ? styles.image : [styles.image,styles.imageSelected]}
-            source={images[img]}
+        <View style={!selected ? styles.imgview : noSelect ? styles.imgview : [styles.imgview,styles.imageSelected]}>
+          <Image style={!selected ? styles.image : noSelect ? styles.image : [styles.image,styles.imageSSelected]}
+               source={
+                { uri: homePage && routine ? Array.isArray(routine) && routine.length > 1 ? routine[1][img]["image"] : routine[img]["image"] : "http://aceplumbers.co.uk/wp-content/uploads/2020/08/create-meme-white-square-white-square-white-background-png-white-background-png-500_492.jpg"} 
+                }
           />
         </View>
-        <Text style={styles.txt}>{img}</Text>
+        <Text style={resultsPage ? [styles.txt, {color: "white"}] : styles.txt}>{img}</Text>
     </TouchableOpacity>
   )
 }
@@ -62,11 +45,10 @@ const styles = StyleSheet.create({
     // borderWidth:0.5
   },
   image:{
-    width: "100%",
-    height: "100%",
+    width: "90%",
+    height: "90%",
     borderRadius: 7,
     alignSelf: "center",
-    opacity: 0.9,
   },
   imgview:{
     width: "90%",
@@ -74,6 +56,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     // backgroundColor: "black"
     backgroundColor: "white",
+    justifyContent: "center"
     
    // borderWidth:0.5
   },
@@ -81,7 +64,13 @@ const styles = StyleSheet.create({
     // opacity: 0.4,
     borderColor: "#3D5744",
     borderWidth: 4,
-    backgroundColor: "#3D5744",
+    // backgroundColor: "#3D5744",
+  },
+  imageSSelected:{
+    opacity: 0.95,
+    backgroundColor: "black",
+    width: "100%",
+    height: "100%",
   },
   txt:{
     textAlign: "center",

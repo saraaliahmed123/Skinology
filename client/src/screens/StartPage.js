@@ -29,12 +29,12 @@ const StartPage = ({navigation}) => {
                 onPress={() => {navigation.navigate("SkinTypePage")}}
                 sty={"#3D5744"}
             /> 
-            <TouchableOpacity 
+            {/* <TouchableOpacity 
                 style={styles.haveAccount}
                 onPress={() => {navigation.navigate("CreateAccount")}}
             >
                 <Text>Skip</Text>
-            </TouchableOpacity> 
+            </TouchableOpacity>  */}
         </View>
     </View>
     </SafeAreaView>

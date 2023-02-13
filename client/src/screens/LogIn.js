@@ -1,29 +1,24 @@
-import {React, useEffect, useState} from 'react'
-import { Image, View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
+import {React, useState} from 'react'
+import { Image, View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Button from '../componenets/Button'
 import InputBox from '../componenets/InputBox'
 import { useUserContext } from '../context/UserContext'
+import { useRoutineContext } from '../context/RoutineContext'
 
 const LogIn = ({navigation}) => {
 
-    const {getAllUsers} = useUserContext()
+    const {Login, user} = useUserContext()
+    const {getRoutine, routine} = useRoutineContext()
 
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-
-    useEffect(() => {
-        const sub = () => {
-            getAllUsers();
-        }
-        sub()
-    }, [])
-
 
   return (
     <SafeAreaView>
     <View style={styles.page}>
         <Text style={styles.heading}>SKINOLOGY</Text>
+        <ScrollView style={{marginTop: 50}}>
         <View style={styles.inputView}>
             <View style={styles.inputViewB}>
             <InputBox 
@@ -43,16 +38,36 @@ const LogIn = ({navigation}) => {
         <View style={styles.buttonAndText}>
             <Button 
                 text={"LOGIN"}
-                onPress={() => {navigation.navigate("Main")}}
+                onPress={async () => {
+                    try{
+                        const id = await Login(email, password)
+                        if (id)
+                        {
+                            // console.log(id)
+                            try{
+                                await getRoutine(id)
+                                navigation.navigate("Main")
+                            }
+                            catch(e){
+                            }
+                         }
+                    }
+                    catch(e){
+                        alert("No user was found")
+                    }
+                }}
                 sty={"#3D5744"}
             />
             <TouchableOpacity 
                 style={styles.haveAccount}
-                onPress={() => {navigation.navigate("IndexScreen")}}
+                onPress={() => {
+                    navigation.navigate("IndexScreen")
+                }}
             >
                 <Text style={styles.haveAccounttxt}>Back</Text>
             </TouchableOpacity>
         </View>
+        </ScrollView>
         <Image style={styles.image}
                 source={require('../componenets/img5neww.png')}
         />
@@ -65,6 +80,7 @@ const styles = StyleSheet.create({
     page:{
         height: "100%",
         flexDirection: "column",
+        borderWidth: 0.5
     },
     inputViewB:{
         height: 100
@@ -80,9 +96,10 @@ const styles = StyleSheet.create({
         color: "white"
     },
     buttonAndText:{
-        height: "22%",
+        height: 160,
         marginHorizontal: 30,
         justifyContent: "center",
+        // borderWidth: 0.5
         //marginBottom: 3
     },
     haveAccount:{
@@ -111,7 +128,7 @@ const styles = StyleSheet.create({
         elevation: 20,
       },
       inputView:{
-        marginTop: "25%",
+        marginTop: "13%",
         marginHorizontal: 5,
       }
 })

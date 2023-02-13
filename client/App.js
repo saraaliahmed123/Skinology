@@ -20,10 +20,15 @@ import AgeScreen from './src/screens/AgeScreen';
 import ResultsPage from './src/screens/ResultsPage';
 
 import ProductPage from './src/screens/tab/ProductPage';
-import Camera from './src/screens/tab/Camera';
+import CameraPage from './src/screens/tab/CameraPage';
 import UpdatePage from './src/screens/tab/UpdatePage';
+import ReviewPage from './src/screens/tab/ReviewPage'
 
-import {UserProvider} from './src/context/UserContext';
+import { UserProvider } from './src/context/UserContext';
+import { RoutineProvider } from './src/context/RoutineContext';
+import { RecordProvider } from './src/context/RecordContext';
+import { SearchProvider } from './src/context/SearchContext';
+import { ShelfProvider } from './src/context/ShelfContext';
 
 const Main = () => {
   const Tab = createBottomTabNavigator();
@@ -62,6 +67,13 @@ const Main = () => {
            tabBarButton: () => null,
         }}
       />
+      <Tab.Screen 
+        name="ReviewPage" 
+        component={ReviewPage} 
+        options={{ 
+           tabBarButton: () => null,
+        }}
+      />
         <Tab.Screen 
         name="Search" 
         component={Search} 
@@ -75,8 +87,8 @@ const Main = () => {
         }}
       />
       <Tab.Screen 
-        name="Camera" 
-        component={Camera} 
+        name="CameraPage" 
+        component={CameraPage} 
         options={{ 
            tabBarButton: () => null,
         }}
@@ -109,6 +121,10 @@ export default function App() {
   const Stack = createNativeStackNavigator();
   return (
     <UserProvider>
+    <RoutineProvider>
+    <RecordProvider>
+    <ShelfProvider>
+    <SearchProvider>
     <NavigationContainer>
       <Stack.Navigator 
         initialRouteName='IndexScreen'
@@ -168,6 +184,10 @@ export default function App() {
         />
       </Stack.Navigator>
     </NavigationContainer>
+    </SearchProvider>
+    </ShelfProvider>
+    </RecordProvider>
+    </RoutineProvider>
     </UserProvider>
   );
 }

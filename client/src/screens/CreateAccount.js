@@ -5,15 +5,23 @@ import Button from '../componenets/Button'
 import InputBox from '../componenets/InputBox'
 
 import {useUserContext} from '../context/UserContext';
+import { useRoutineContext } from '../context/RoutineContext'
+import { useShelfContext } from '../context/ShelfContext'
 
 const CreateAccount = ({navigation}) => {
 
-    const {CreateAccount} = useUserContext()
+    const {CreateAccount, user} = useUserContext()
+    const {saveRoutine} = useRoutineContext()
+    const {createShelf} = useShelfContext()
 
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+
+    // if (user){
+    //     console.log(user)
+    // }
 
   return (
     <SafeAreaView>
@@ -28,12 +36,14 @@ const CreateAccount = ({navigation}) => {
                 placeholder="First Name" 
                 value={firstName}
                 setter={setFirstName}
+                autoCapitalize='sentences'
             />
 
             <InputBox 
                 placeholder="Last Name" 
                 value={lastName}
                 setter={setLastName}
+                autoCapitalize='sentences'
             />
 
             <InputBox 
@@ -52,9 +62,35 @@ const CreateAccount = ({navigation}) => {
         <View style={styles.buttonAndText}>
             <Button 
                 text={"CREATE ACCOUNT"}
-                onPress={() => {
-                    //navigation.navigate("Main")
-                    CreateAccount(firstName, lastName, email, password)
+                onPress={async () => {
+                    try{
+                        const id = await CreateAccount(firstName, lastName, email, password)
+                        try{
+                            const here = await saveRoutine(id)
+                            try{
+                                await createShelf(id, here)
+                            }
+                            catch(e){
+
+                            }
+                        }
+                        catch(e)
+                        {
+
+                        }
+                        
+                    }
+                    catch(e){
+
+                    }
+
+                    navigation.navigate("Main")
+                    
+                    // console.log(id)
+                    // const here = await saveRoutine(id)
+                    // console.log(here)
+    
+                    
                 }}
                 sty={"#3D5744"}
             />
