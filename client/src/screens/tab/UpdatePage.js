@@ -1,29 +1,215 @@
 import {React, useState} from 'react'
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { View, TouchableOpacity, Text, StyleSheet, ScrollView } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Ionicons } from '@expo/vector-icons';
 import Card from '../../componenets/Card';
 import Button from '../../componenets/Button';
+import { useUserContext } from '../../context/UserContext';
+import { useRoutineContext } from '../../context/RoutineContext';
+import { useShelfContext } from '../../context/ShelfContext';
 
 const UpdatePage = ({navigation}) => {
+    const {EditInformation, user, setInformation, information} = useUserContext();
+    const {createRoutine, getRoutine, editRoutine} = useRoutineContext();
+    const {addToShelf} = useShelfContext()
+
      const [selected, setSelected] = useState("Skin Type")
 
-     const [skinType, setSkinType] = useState([]);
+     const [skinType, setSkinType] = useState();
 
-    const handleCardSelection = (selectedCard) => {
-        console.log(selectedCard)
-        setSkinType([...skinType, selectedCard]);
-    }
+     const handleCardSelection = (selectedCard) => {
+      let arr = [];
+      let bo = false;
+      if (skinType) {
+          skinType.forEach((item) => {
+              if (item !== selectedCard) {
+              arr.push(item);
+              }
+              else
+              {
+                  bo = true;
+              }
+          });
+          if (bo === false) {
+              arr.push(selectedCard)
+          }
+          if (skinType.length === 0) {
+              setSkinType([selectedCard]); 
+          }
+          else {
+              setSkinType(arr);
+          }
+      } else {
+        arr.push(selectedCard);
+        setSkinType(arr);
+      }
+  }
 
-    const [skinConcern, setSkinConcern] = useState([]);
+    const [skinConcern, setSkinConcern] = useState();
 
     const handleCardSelection2 = (selectedCard) => {
-        console.log(selectedCard)
-        setSkinConcern([...skinConcern, selectedCard]);
-    }
+      let arr = [];
+      let bo = false;
+      if (skinConcern) {
+          skinConcern.forEach((item) => {
+              if (item !== selectedCard) {
+              arr.push(item);
+              }
+              else
+              {
+                  bo = true;
+              }
+          });
+          if (bo === false) {
+              arr.push(selectedCard)
+          }
+          if (skinConcern.length === 0) {
+              setSkinConcern([selectedCard]); 
+          }
+          else {
+              setSkinConcern(arr);
+          }
+      } else {
+        arr.push(selectedCard);
+        setSkinConcern(arr);
+      }
+  }
+
+  // console.log(skinType)
+  // console.log(skinConcern)
+
+  // console.log(information)
+
+  const second = () => {
+    if (selected === "Skin Concern")
+    {
+    return (
+      <View style={{marginTop: 10}}>
+            <View style={styles.contentView}>
+                    <View style={styles.cardView}>
+                        <Card img={"Oil Control"} onSelect={handleCardSelection2} />
+                    </View>
+                    <View style={styles.cardView}>
+                        <Card img={"Anti-aging"} onSelect={handleCardSelection2} />
+                    </View>
+                    <View style={styles.cardView}>
+                        <Card img={"Pigmentation"} onSelect={handleCardSelection2} />
+                    </View>
+                    <View style={styles.cardView}>
+                        <Card img={"Acne"} onSelect={handleCardSelection2} />
+                    </View>
+                    <View style={styles.cardView}>
+                        <Card img={"Blackheads"} onSelect={handleCardSelection2} />
+                    </View>
+                    <View style={styles.cardView}>
+                        <Card img={"Hydration"} onSelect={handleCardSelection2} />
+                    </View>
+                    
+                </View>
+            <View style={styles.buttonView}>
+              <View style={{marginBottom: 20}}>
+              <Button text={"Done"} onPress={() => {
+                setInformation((prev) => {
+                  return {...prev, "skinConcern": skinConcern}
+                })
+              }}
+              sty={"#3D5744"}
+              />
+              </View>
+        <Button 
+            text={"Save"}
+            onPress={async ()=> {
+                try{
+                  const hi = await EditInformation(user._id, skinType, skinConcern)
+                  try{    
+                    const here = await createRoutine()
+                    // console.log(here[0])
+                    try{
+                      const sup = await editRoutine(user._id, here)
+                     try{
+                       const routine = await getRoutine(user._id)
+                       await addToShelf(routine.Cleanser)
+                       await addToShelf(routine.Toner)
+                       await addToShelf(routine.Serum)
+                       await addToShelf(routine.Moisturizer)
+                       await addToShelf(routine.Suncream)
+                     }
+                     catch(e){
+    
+                     }
+                   }
+                   catch(e){
+    
+                   }
+                  }
+                  catch(e){
+
+                  }
+                }
+                catch(e)
+                {
+
+                }
+                setSelected("Skin Type")
+                setSkinType()
+                setSkinConcern()
+                navigation.goBack()
+
+            }}
+            sty={"#3D5744"}
+        /> 
+            </View>
+        </View>
+    )
+          }
+  }
+
+  const first = () => {
+    if (selected === "Skin Type")
+    {
+    return(
+      <View style={{marginTop: 10}}>
+            <View style={styles.contentView}>
+                <View style={styles.cardView}>
+                    <Card img={"Combination"} onSelect={handleCardSelection} />
+                </View>
+                <View style={styles.cardView}>
+                    <Card img={"Normal"} onSelect={handleCardSelection} />
+                </View>
+                <View style={styles.cardView}>
+                    <Card img={"Sensitive"} onSelect={handleCardSelection} />
+                </View>
+                <View style={styles.cardView}>
+                    <Card img={"Oily"} onSelect={handleCardSelection} />
+                </View>
+                <View style={styles.cardView}>
+                    <Card img={"Dry"} onSelect={handleCardSelection} />
+                </View>
+                <View style={styles.cardView}>
+                    <Card img={"I don't know"} onSelect={handleCardSelection} />
+                </View>
+                        
+            </View>
+            <View style={styles.buttonView}>
+                <Button 
+                    text={"Done"}
+                    onPress={()=> {
+                      setInformation((prev) => {
+                        return {...prev, "skinType": skinType}
+                      })
+                        setSelected("Skin Concern")
+                    }}
+                    sty={"#3D5744"}
+                /> 
+            </View>
+        </View>
+    )
+                  }
+  }
 
   return (
     <SafeAreaView>
+    <ScrollView>
     <View style={styles.page}>
         <View>
             <TouchableOpacity
@@ -51,79 +237,18 @@ const UpdatePage = ({navigation}) => {
             </TouchableOpacity>
           </View>
         </View>
-        {selected === "Skin Type" ?
+        {/* {selected === "Skin Type" ? */}
 
-        <View style={{marginTop: 10}}>
-            <View style={styles.contentView}>
-                <View style={styles.cardView}>
-                    <Card img={"Combination"} onSelect={handleCardSelection} />
-                </View>
-                <View style={styles.cardView}>
-                    <Card img={"Normal"} onSelect={handleCardSelection} />
-                </View>
-                <View style={styles.cardView}>
-                    <Card img={"Sensitive"} onSelect={handleCardSelection} />
-                </View>
-                <View style={styles.cardView}>
-                    <Card img={"Oily"} onSelect={handleCardSelection} />
-                </View>
-                <View style={styles.cardView}>
-                    <Card img={"Dry"} onSelect={handleCardSelection} />
-                </View>
-                <View style={styles.cardView}>
-                    <Card img={"I don't know?"} onSelect={handleCardSelection} />
-                </View>
-                        
-            </View>
-            <View style={styles.buttonView}>
-                <Button 
-                    text={"Done"}
-                    onPress={()=> {
-                        setSelected("Skin Concern")
-                    }}
-                    sty={"#3D5744"}
-                /> 
-            </View>
-        </View>
+        {first()}
 
-        :
+        {/* : */}
         
-        <View style={{marginTop: 10}}>
-            <View style={styles.contentView}>
-                    <View style={styles.cardView}>
-                        <Card img={"Oil Control"} onSelect={handleCardSelection2} />
-                    </View>
-                    <View style={styles.cardView}>
-                        <Card img={"Anti-aging"} onSelect={handleCardSelection2} />
-                    </View>
-                    <View style={styles.cardView}>
-                        <Card img={"Pigmentation"} onSelect={handleCardSelection2} />
-                    </View>
-                    <View style={styles.cardView}>
-                        <Card img={"Acne"} onSelect={handleCardSelection2} />
-                    </View>
-                    <View style={styles.cardView}>
-                        <Card img={"Blackheads"} onSelect={handleCardSelection2} />
-                    </View>
-                    <View style={styles.cardView}>
-                        <Card img={"Hydration"} onSelect={handleCardSelection2} />
-                    </View>
-                    
-                </View>
-            <View style={styles.buttonView}>
-        <Button 
-            text={"Done"}
-            onPress={()=> {
-                navigation.goBack()
-            }}
-            sty={"#3D5744"}
-        /> 
-            </View>
-        </View>
+        {second()}
 
 
-        }
+        {/* } */}
     </View>
+    </ScrollView>
     </SafeAreaView>
   )
 }
@@ -170,7 +295,7 @@ const styles = StyleSheet.create({
     // bottom: 0,
     height: 30,
     width: 35,
-    marginBottom: "10%"
+    marginBottom: "10%",
   },
   button:{
     width: "100%",
