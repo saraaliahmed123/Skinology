@@ -34,7 +34,7 @@ const Account = ({navigation}) => {
           //console.log(item)
           return(
             <View key={key} style={{margin: 10}}>
-              <Text>{new Date().toDateString()}</Text>
+              <Text>{new Date(item.date).toDateString()}</Text>
               <Text style={{textAlign: "center"}}>{item.type}</Text>
               {item.images.map((val, key) => {
             // console.log(val)
