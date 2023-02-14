@@ -2,11 +2,25 @@ import {React, useState} from 'react'
 import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native'
 import { useRoutineContext } from '../context/RoutineContext'
 
+const images = {
+  "Sensitive": require('../componenets/sensitive.jpg'),
+  "Oily": require('../componenets/oily333.jpg'),
+  "Combination": require('../componenets/combination.jpg'),
+  "Normal": require('../componenets/normal.jpg'),
+  "Dry": require('../componenets/dry3333.jpg'),
+  "I don't know?": require('../componenets/Idont1.jpg'),
+  // "Blackheads": require('../componenets/blackheads.jpg'),
+  // "Anti-aging": require('../componenets/antiaging.jpg'),
+  //"http://aceplumbers.co.uk/wp-content/uploads/2020/08/create-meme-white-square-white-square-white-background-png-white-background-png-500_492.jpg"
+}
+
 
 const Card = ({ img, onSelect, noSelect, resultsPage, homePage }) => {
   const {routine} = useRoutineContext()
   
   const [selected, setSelected] = useState(false);
+
+  // console.log(img)
   return (
     <TouchableOpacity 
      disabled={noSelect}
@@ -22,10 +36,11 @@ const Card = ({ img, onSelect, noSelect, resultsPage, homePage }) => {
       
       >
         <View style={!selected ? styles.imgview : noSelect ? styles.imgview : [styles.imgview,styles.imageSelected]}>
-          <Image style={!selected ? styles.image : noSelect ? styles.image : [styles.image,styles.imageSSelected]}
+          <Image style={!selected ? styles.image : noSelect ? styles.image : !homePage && !routine ? [styles.imageskin,styles.imageSSelected] : [styles.image,styles.imageSSelected]}
                source={
-                { uri: homePage && routine ? Array.isArray(routine) && routine.length > 1 ? routine[1][img]["image"] : routine[img]["image"] : "http://aceplumbers.co.uk/wp-content/uploads/2020/08/create-meme-white-square-white-square-white-background-png-white-background-png-500_492.jpg"} 
-                }
+                homePage && routine ? Array.isArray(routine) && routine.length > 1 ? {uri: routine[1][img]["image"]} : {uri: routine[img]["image"]} : images[img]
+               // { uri: homePage && routine ? Array.isArray(routine) && routine.length > 1 ? routine[1][img]["image"] : routine[img]["image"] : images[img]} 
+              }
           />
         </View>
         <Text style={resultsPage ? [styles.txt, {color: "white"}] : styles.txt}>{img}</Text>
@@ -48,6 +63,13 @@ const styles = StyleSheet.create({
     width: "90%",
     height: "90%",
     borderRadius: 7,
+    alignSelf: "center",
+  },
+  imageskin:{
+    borderWidth: 0.5,
+    width: "100%",
+    height: "100%",
+    borderRadius: 4,
     alignSelf: "center",
   },
   imgview:{
