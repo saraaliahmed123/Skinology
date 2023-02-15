@@ -15,6 +15,7 @@ const images = {
   "Oil Control": require('../componenets/oilcontrol2.jpg'),
   "Pigmentation": require('../componenets/pigmentation.jpg'),
   "Blackheads": require('../componenets/blackheads2.jpg'),
+  "All": require('../componenets/all3.jpg'),
   //"http://aceplumbers.co.uk/wp-content/uploads/2020/08/create-meme-white-square-white-square-white-background-png-white-background-png-500_492.jpg"
 }
 
