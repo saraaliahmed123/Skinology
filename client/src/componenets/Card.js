@@ -9,8 +9,12 @@ const images = {
   "Normal": require('../componenets/normal.jpg'),
   "Dry": require('../componenets/dry3333.jpg'),
   "I don't know?": require('../componenets/Idont1.jpg'),
-  // "Blackheads": require('../componenets/blackheads.jpg'),
-  // "Anti-aging": require('../componenets/antiaging.jpg'),
+  "Anti-aging": require('../componenets/antiaging.jpg'),
+  "Hydration": require('../componenets/hydration.jpg'),
+  "Acne": require('../componenets/acne.jpg'),
+  "Oil Control": require('../componenets/oilcontrol2.jpg'),
+  "Pigmentation": require('../componenets/pigmentation.jpg'),
+  "Blackheads": require('../componenets/blackheads2.jpg'),
   //"http://aceplumbers.co.uk/wp-content/uploads/2020/08/create-meme-white-square-white-square-white-background-png-white-background-png-500_492.jpg"
 }
 
