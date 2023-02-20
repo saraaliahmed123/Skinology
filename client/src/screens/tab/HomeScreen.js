@@ -356,11 +356,7 @@ const HomeScreen = ({navigation}) => {
           <MaterialIcons name="arrow-back-ios" size={20} color="black" />
         </TouchableOpacity>
         {displayCalendar()}
-        <TouchableOpacity style={{alignSelf: "center", width: 32}} onPress={() => {
-          setPage((prev) => {
-            return prev+1
-          })
-        }}>
+        <TouchableOpacity style={{alignSelf: "center", width: 32}} >
         <MaterialIcons name="arrow-forward-ios" size={20} color="black"/>
         </TouchableOpacity>
       </View>
