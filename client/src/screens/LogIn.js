@@ -49,7 +49,12 @@ const LogIn = ({navigation}) => {
                                 navigation.navigate("Main")
                             }
                             catch(e){
+                                alert("No user was found")
                             }
+                         }
+                         else
+                         { 
+                            alert("No user was found")
                          }
                     }
                     catch(e){

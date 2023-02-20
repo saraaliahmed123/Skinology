@@ -24,10 +24,10 @@ const ResultsPage = ({navigation}) => {
     
     const [selected, setSelected] = useState();
 
-    // if(routine)
-    // {
-    //     console.log(routine)
-    // }
+    if(routine)
+    {
+        console.log(routine)
+    }
 
     const [days, setDays] = useState();
 
@@ -260,8 +260,15 @@ const ResultsPage = ({navigation}) => {
             <Button 
                 text={"SAVE ROUTINE"}
                 onPress={() => {
-                    setWeekDays(days)
-                    navigation.navigate("CreateAccount")
+                    if (days)
+                    {
+                        setWeekDays(days)
+                        navigation.navigate("CreateAccount")
+                    }
+                    else
+                    {
+                        alert("Select days for your routine")
+                    }
                 }}
                 sty={"#3D5744"}
             />

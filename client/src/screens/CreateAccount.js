@@ -63,28 +63,34 @@ const CreateAccount = ({navigation}) => {
             <Button 
                 text={"CREATE ACCOUNT"}
                 onPress={async () => {
+                    if (firstName && lastName && email && password)
+                    {
                     try{
                         const id = await CreateAccount(firstName, lastName, email, password)
                         try{
                             const here = await saveRoutine(id)
                             try{
                                 await createShelf(id, here)
+                                navigation.navigate("Main")
                             }
                             catch(e){
-
+                                alert("Could not create account")
                             }
                         }
                         catch(e)
                         {
-
+                            alert("Could not create account")
                         }
                         
                     }
                     catch(e){
-
+                        alert("Could not create account")
                     }
-
-                    navigation.navigate("Main")
+                    }
+                    else
+                    {
+                        alert("Please enter your details")
+                    }
                     
                     // console.log(id)
                     // const here = await saveRoutine(id)
