@@ -9,7 +9,7 @@ const IndexScreen = ({navigation}) => {
 
     useEffect(() => {
         const sub = async () => {
-            await getAllUsers("63e7b5bb31ee009c4f670da8");
+            await getAllUsers();
         }
         sub()
     }, [])

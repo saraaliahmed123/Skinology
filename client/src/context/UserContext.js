@@ -1,5 +1,6 @@
 import {React, createContext, useState, useContext} from 'react';
 import axios from 'axios';
+import { PORT } from '@env';
 
 const UserContext = createContext();
 
@@ -20,10 +21,7 @@ export const UserProvider = ({children}) => {
     };
 
     const instance = axios.create({
-        baseURL: 'http://192.168.1.25:3001'
-        //Libary: baseURL: 'http://10.130.43.77:3001'
-        //Picton: 
-        //baseURL: 'http://10.130.43.153:3001'
+        baseURL: PORT
         
     })
 
@@ -54,7 +52,7 @@ export const UserProvider = ({children}) => {
             "email": email,
             "password": password
         };
-       // console.log(data+ "login context")
+    //    console.log(data+ "login context")
         try {
             const response = await instance.post("/user/login", data, config);
         //    console.log(response.data+"context login body")
@@ -65,15 +63,17 @@ export const UserProvider = ({children}) => {
             }
         } 
         catch (error) {
+
             console.log("Error in loggining in");
         }
     };
 
 
-    const getAllUsers = async (id) => {
+    const getAllUsers = async () => {
+        console.log(PORT)
         try {
-            const response = await instance.get(`/user/users/${"43"}`, id);
-            //console.log(response.data);
+            const response = await instance.get(`/user/users/`, config);
+            console.log(response.data);
         } catch (error) {
             //console.log(error.message);
             console.log("Error in getting users");

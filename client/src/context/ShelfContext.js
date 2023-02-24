@@ -1,6 +1,7 @@
 import {React, createContext, useState, useContext} from 'react';
 import axios from 'axios';
 import { useUserContext } from './UserContext';
+import { PORT } from '@env';
 
 const ShelfContext = createContext();
 
@@ -19,10 +20,7 @@ export const ShelfProvider = ({children}) => {
     };
 
     const instance = axios.create({
-        baseURL: 'http://192.168.1.25:3001'
-        //Libary: baseURL: 'http://10.130.43.77:3001'
-        //Picton: 
-        //baseURL: 'http://10.130.43.153:3001'
+        baseURL: PORT
         
     })
 

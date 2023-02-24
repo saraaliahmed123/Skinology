@@ -49,7 +49,7 @@ router.post('/login', async (req, res) => {
    }
 })
 
-router.get('/users/:id', async (req, res) => {
+router.get('/users', async (req, res) => {
    // console.log(req.body)
    // console.log(req.params)
 

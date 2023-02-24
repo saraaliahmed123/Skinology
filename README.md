@@ -32,7 +32,16 @@ For the server:
     - cd server
     - nodemon server.js
 
-4. Run the app on an emulator or a physical device
+4. Update the baseURL within all context files in the client
+
+    - Open Command Prompt in your windows
+    - Enter ipconfig into the command line
+    - Retrieve your IPv4 Address
+    - Open the .env file within the clinet
+    - Enter the address as the PORT
+        e.g PORT = http://<Your_address>:3001
+
+5. Run the app on an emulator or a physical device
 
 cd client
 npm run android or npm run ios
