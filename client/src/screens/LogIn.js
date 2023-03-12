@@ -74,7 +74,7 @@ const LogIn = ({navigation}) => {
         </View>
         </ScrollView>
         <Image style={styles.image}
-                source={require('../componenets/img5neww.png')}
+                source={require('../componenets/images/img5neww.png')}
         />
     </View>
     </SafeAreaView>

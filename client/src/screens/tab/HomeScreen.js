@@ -345,7 +345,7 @@ const HomeScreen = ({navigation}) => {
             </View>
             <View style={styles.imageView}>
               <Image style={styles.image}
-                    source={require('../../componenets/eye-shadow.png')}
+                    source={require('../../componenets/images/eye-shadow.png')}
               /> 
             </View>
            </View>
@@ -366,7 +366,7 @@ const HomeScreen = ({navigation}) => {
 
         <View style={styles.skinLog}>
             <Image style={styles.imageSkin}
-                  source={require('../../componenets/skinfeeling.jpg')}
+                  source={require('../../componenets/images/skinfeeling.jpg')}
             /> 
               <View style={styles.skinLogContent}>
                   <Text style={styles.skinDailyLog}>Daily Skin Fact</Text>

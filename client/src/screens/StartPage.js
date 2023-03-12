@@ -13,7 +13,7 @@ const StartPage = ({navigation}) => {
         <View style={styles.contentView}>
             <View style={styles.content}>
                 <Image style={styles.image}
-                        source={require('../componenets/img3.jpg')}
+                        source={require('../componenets/images/img3.jpg')}
                 />
             </View>
 

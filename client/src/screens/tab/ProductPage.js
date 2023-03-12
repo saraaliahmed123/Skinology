@@ -34,7 +34,7 @@ const ProductPage = ({navigation}) => {
       // console.log(i)
       let stars = (
         <Image key={i} style={styles.star}
-            source={require('../../componenets/star.png')}
+            source={require('../../componenets/images/star.png')}
         />
       )
       hi.push(stars)
@@ -60,7 +60,7 @@ const ProductPage = ({navigation}) => {
       // console.log(i)
       let stars = (
         <Image style={styles.starCustomer}
-            source={require('../../componenets/star.png')}
+            source={require('../../componenets/images/star.png')}
         />
       )
       hi.push(stars)
@@ -149,7 +149,7 @@ const ProductPage = ({navigation}) => {
               <View style={styles.stars}>
                 {getStars()}
                 <Image style={styles.Halfstar}
-                    source={require('../../componenets/Half_Star.png')}
+                    source={require('../../componenets/images/Half_Star.png')}
                 />
               </View>
             </View>

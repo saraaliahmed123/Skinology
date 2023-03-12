@@ -35,7 +35,7 @@ const IndexScreen = ({navigation}) => {
             </View>
         </View>
         <Image style={styles.image}
-                source={require('../componenets/img2.png')}
+                source={require('../componenets/images/img2.png')}
         />
     </View>
     </SafeAreaView>

@@ -108,7 +108,7 @@ const CreateAccount = ({navigation}) => {
             </TouchableOpacity>
         </View>
         <Image style={styles.image}
-                source={require('../componenets/here.png')}
+                source={require('../componenets/images/here.png')}
         />
     </View>
     </SafeAreaView>

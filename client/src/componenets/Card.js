@@ -3,19 +3,19 @@ import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native'
 import { useRoutineContext } from '../context/RoutineContext'
 
 const images = {
-  "Sensitive": require('../componenets/sensitive.jpg'),
-  "Oily": require('../componenets/oily333.jpg'),
-  "Combination": require('../componenets/combination.jpg'),
-  "Normal": require('../componenets/normal.jpg'),
-  "Dry": require('../componenets/dry3333.jpg'),
-  "I don't know?": require('../componenets/Idont1.jpg'),
-  "Anti-aging": require('../componenets/antiaging.jpg'),
-  "Hydration": require('../componenets/hydration.jpg'),
-  "Acne": require('../componenets/acne.jpg'),
-  "Oil Control": require('../componenets/oilcontrol2.jpg'),
-  "Pigmentation": require('../componenets/pigmentation.jpg'),
-  "Blackheads": require('../componenets/blackheads2.jpg'),
-  "All": require('../componenets/all3.jpg'),
+  "Sensitive": require('../componenets/images/sensitive.jpg'),
+  "Oily": require('../componenets/images/oily333.jpg'),
+  "Combination": require('../componenets/images/combination.jpg'),
+  "Normal": require('../componenets/images/normal.jpg'),
+  "Dry": require('../componenets/images/dry3333.jpg'),
+  "I don't know?": require('../componenets/images/Idont1.jpg'),
+  "Anti-aging": require('../componenets/images/antiaging.jpg'),
+  "Hydration": require('../componenets/images/hydration.jpg'),
+  "Acne": require('../componenets/images/acne.jpg'),
+  "Oil Control": require('../componenets/images/oilcontrol2.jpg'),
+  "Pigmentation": require('../componenets/images/pigmentation.jpg'),
+  "Blackheads": require('../componenets/images/blackheads2.jpg'),
+  "All": require('../componenets/images/all3.jpg'),
   //"http://aceplumbers.co.uk/wp-content/uploads/2020/08/create-meme-white-square-white-square-white-background-png-white-background-png-500_492.jpg"
 }
 
