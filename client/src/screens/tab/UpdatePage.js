@@ -109,9 +109,16 @@ const UpdatePage = ({navigation}) => {
             <View style={styles.buttonView}>
               <View style={{marginBottom: 20}}>
               <Button text={"Done"} onPress={() => {
+                if (skinConcern && skinConcern.length !== 0)
+                {
                 setInformation((prev) => {
                   return {...prev, "skinConcern": skinConcern}
                 })
+                }
+                else
+                {
+                  alert("Please select a skin concern")
+                }
               }}
               sty={"#3D5744"}
               />
@@ -119,6 +126,8 @@ const UpdatePage = ({navigation}) => {
         <Button 
             text={"Save"}
             onPress={async ()=> {
+              if (skinConcern && skinConcern.length !== 0)
+                {
                 try{
                   const hi = await EditInformation(user._id, skinType, skinConcern)
                   try{    
@@ -153,7 +162,12 @@ const UpdatePage = ({navigation}) => {
                 setSelected("Skin Type")
                 setSkinType()
                 setSkinConcern()
-                navigation.goBack()
+                navigation.navigate("Account")
+              }
+              else
+              {
+                alert("Please select a skin concern")
+              }
 
             }}
             sty={"#3D5744"}
@@ -194,10 +208,17 @@ const UpdatePage = ({navigation}) => {
                 <Button 
                     text={"Done"}
                     onPress={()=> {
-                      setInformation((prev) => {
-                        return {...prev, "skinType": skinType}
-                      })
-                        setSelected("Skin Concern")
+                      if (skinType && skinType.length !== 0)
+                      {
+                        setInformation((prev) => {
+                          return {...prev, "skinType": skinType}
+                        })
+                          setSelected("Skin Concern")
+                      }
+                      else
+                      {
+                        alert("Please select a skin type")
+                      }
                     }}
                     sty={"#3D5744"}
                 /> 
@@ -214,7 +235,7 @@ const UpdatePage = ({navigation}) => {
         <View>
             <TouchableOpacity
             style={styles.back}
-            onPress={() => {navigation.goBack()}}
+            onPress={() => {navigation.navigate("Account")}}
             >
                 <Ionicons name="chevron-back" size={24} color="black" />
             </TouchableOpacity>
@@ -226,12 +247,12 @@ const UpdatePage = ({navigation}) => {
 
           <View style={styles.top}>
             <TouchableOpacity style={selected === "Skin Type" ? styles.profileButton : styles.profileButtonNot} onPress={()=> {
-              setSelected("Skin Type")
+              // setSelected("Skin Type")
             }}>
               <Text style={selected === "Skin Type" ? styles.profileButtontxt :styles.profileButtontxtNot}>Skin Type</Text>
             </TouchableOpacity>
             <TouchableOpacity style={selected === "Skin Concern" ? styles.profileButton : styles.profileButtonNot} onPress={()=> {
-              setSelected("Skin Concern")
+              // setSelected("Skin Concern")
             }}>
               <Text style={selected === "Skin Concern" ? styles.profileButtontxt :styles.profileButtontxtNot} >Skin Concern</Text>
             </TouchableOpacity>

@@ -108,7 +108,7 @@ const ProductPage = ({navigation}) => {
           <View style={styles.top}>
             <TouchableOpacity
             style={styles.back}
-            onPress={() => {navigation.goBack()}}
+            onPress={() => {navigation.navigate("Search")}}
             >
                 <Ionicons name="chevron-back" size={24} color="black" />
             </TouchableOpacity>
