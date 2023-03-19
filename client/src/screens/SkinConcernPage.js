@@ -78,10 +78,18 @@ const SkinConcernPage = ({navigation}) => {
             <Button 
                 text={"Continue"}
                 onPress={() => {
-                    setInformation((prev) => {
-                        return {...prev, "skinConcern": skinConcern}
-                })
-                    navigation.navigate("GenderPage");
+
+                    if (skinConcern)
+                    {
+                        setInformation((prev) => {
+                            return {...prev, "skinConcern": skinConcern}
+                        })
+                        navigation.navigate("GenderPage");
+                    }
+                    else
+                    {
+                        alert("Please select a skin concern")
+                    }
                 }}
                 sty={"#3D5744"}
             /> 

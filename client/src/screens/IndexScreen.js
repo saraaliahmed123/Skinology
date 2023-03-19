@@ -71,7 +71,8 @@ const styles = StyleSheet.create({
         position: "absolute",
          zIndex: -1,
         borderWidth: 4,
-        height: 730,
+        height: "100%",
+        //730,
         width: 440,
     },
     haveAccounttxtView:{

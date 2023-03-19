@@ -44,8 +44,6 @@ router.get('/getTodaysRecords/:id', async (req, res) => {
 router.get('/getRecords/:id', async (req, res) => {
     try{
         const record = await Record.find({"user": req.params.id})
-        // res.set("Content-Type", "image/jpeg");
-        // res.send(image.data);
         res.send(record)
     }
     catch{

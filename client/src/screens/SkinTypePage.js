@@ -75,8 +75,15 @@ const SkinTypePage = ({navigation}) => {
             <Button 
                 text={"Continue"}
                 onPress={() => {
-                    setInformation({ "skinType" : skinType })
-                    navigation.navigate("SkinConcernPage");
+                    if (skinType)
+                    {
+                        setInformation({ "skinType" : skinType })
+                        navigation.navigate("SkinConcernPage");
+                    }
+                    else
+                    {
+                        alert("Please select a skin type")
+                    }
                 }}
                 sty={"#3D5744"}
             /> 

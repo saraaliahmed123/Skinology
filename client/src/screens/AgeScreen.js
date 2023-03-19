@@ -43,6 +43,10 @@ const AgeScreen = ({navigation}) => {
                         })
                         navigation.navigate("ResultsPage");
                     }
+                    else
+                    {
+                        alert("Please select your age")
+                    }
                 }}
                 sty={"#3D5744"}
             /> 

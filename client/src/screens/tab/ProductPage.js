@@ -15,6 +15,7 @@ const ProductPage = ({navigation}) => {
 
   const [reviews, setReviews] = useState();
 
+
   useEffect(() => {
     const sub = async () => {
       // console.log(item)

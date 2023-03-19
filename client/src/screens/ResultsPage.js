@@ -76,7 +76,7 @@ const ResultsPage = ({navigation}) => {
   return (
     <SafeAreaView>
     <ScrollView>
-    <View style={!selected ? [{height: Dimensions.get('window').height}, styles.page] :styles.page}>
+    <View style={!selected ? [{height: Dimensions.get('window').height+100}, styles.page] : [styles.page]}>
         <View style={styles.skinType}>
             <View style={[styles.cards, {marginTop: 35}]}>
                 {information.skinType.map((item, key) => {
@@ -288,6 +288,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
        //  justifyContent: "space-between",
         backgroundColor: "#ECECEE",
+        borderWidth: 0.5
     },
     skinType:{
         // height: 350,

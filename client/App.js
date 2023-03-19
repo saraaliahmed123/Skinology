@@ -18,6 +18,7 @@ import SkinConcernPage from './src/screens/SkinConcernPage';
 import GenderPage from './src/screens/GenderPage';
 import AgeScreen from './src/screens/AgeScreen';
 import ResultsPage from './src/screens/ResultsPage';
+import TermsConditions from './src/screens/TermsConditions';
 
 import ProductPage from './src/screens/tab/ProductPage';
 import CameraPage from './src/screens/tab/CameraPage';
@@ -175,6 +176,11 @@ export default function App() {
         <Stack.Screen 
           name='CreateAccount'
           component={CreateAccount}
+          options={{title: "SKINOLOGY"}}
+        />
+        <Stack.Screen 
+          name='TermsConditions'
+          component={TermsConditions}
           options={{title: "SKINOLOGY"}}
         />
         <Stack.Screen 

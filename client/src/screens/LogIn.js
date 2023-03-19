@@ -18,15 +18,12 @@ const LogIn = ({navigation}) => {
     <SafeAreaView>
     <View style={styles.page}>
         <Text style={styles.heading}>SKINOLOGY</Text>
-        <ScrollView style={{marginTop: 50}}>
         <View style={styles.inputView}>
-            <View style={styles.inputViewB}>
             <InputBox 
                 placeholder="Email" 
                 value={email}
                 setter={setEmail}
             />
-            </View>
 
             <InputBox 
                 placeholder="Password" 
@@ -72,7 +69,6 @@ const LogIn = ({navigation}) => {
                 <Text style={styles.haveAccounttxt}>Back</Text>
             </TouchableOpacity>
         </View>
-        </ScrollView>
         <Image style={styles.image}
                 source={require('../componenets/images/img5neww.png')}
         />
@@ -85,10 +81,6 @@ const styles = StyleSheet.create({
     page:{
         height: "100%",
         flexDirection: "column",
-        borderWidth: 0.5
-    },
-    inputViewB:{
-        height: 100
     },
     heading:{
         fontSize: 45,
@@ -116,7 +108,11 @@ const styles = StyleSheet.create({
         position: "absolute",
          zIndex: -1,
         height: 730,
-        width: 395,
+        width: 360,
+        // height: 730,
+        // width: 399,
+        // height: "100%",
+        // width: "100%"
 
     },
     input: {
@@ -133,7 +129,7 @@ const styles = StyleSheet.create({
         elevation: 20,
       },
       inputView:{
-        marginTop: "13%",
+        marginTop: "25%",
         marginHorizontal: 5,
       }
 })

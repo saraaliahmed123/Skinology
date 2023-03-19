@@ -27,9 +27,7 @@ const CreateAccount = ({navigation}) => {
     <SafeAreaView>
     <View style={styles.page}>
         <Text style={styles.heading}>SKINOLOGY</Text>
-            <Text style={styles.hi}>
-                Let's sign up, to save your progress
-            </Text>
+        <Text style={styles.hi}> Let's sign up, to save your progress </Text>
         <View style={styles.inputView}>
 
             <InputBox 
@@ -71,7 +69,7 @@ const CreateAccount = ({navigation}) => {
                             const here = await saveRoutine(id)
                             try{
                                 await createShelf(id, here)
-                                navigation.navigate("Main")
+                                navigation.navigate("TermsConditions")
                             }
                             catch(e){
                                 alert("Could not create account")
@@ -144,10 +142,12 @@ const styles = StyleSheet.create({
     image:{
         position: "absolute",
          zIndex: -1,
-        // height: 730,
-        // width: 360,
         height: 730,
-        width: 399,
+        width: 360,
+        // height: 730,
+        // width: 399,
+        // height: "100%",
+        // width: "100%"
 
     },
     inputView:{
