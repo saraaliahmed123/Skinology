@@ -81,6 +81,8 @@ const styles = StyleSheet.create({
     page:{
         height: "100%",
         flexDirection: "column",
+        borderWidth: 0.5,
+        borderColor: "red"
     },
     heading:{
         fontSize: 45,
@@ -106,9 +108,9 @@ const styles = StyleSheet.create({
     },
     image:{
         position: "absolute",
-         zIndex: -1,
-        height: 730,
-        width: 360,
+        zIndex: -1,
+        height: "100%",
+        width: "100%",
         // height: 730,
         // width: 399,
         // height: "100%",

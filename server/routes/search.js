@@ -20,6 +20,16 @@ router.get('/getProduct/:name', async (req, res) => {
    }
 })
 
+router.get('/getAllProducts', async (req, res) => {
+   try{
+      const products = [...cleanser, ...toner, ...serum, ...moisturizer, ...suncream]
+      res.send(products)
+   }
+   catch(e){
+      console.log("Could not Login")
+   }
+})
+
 router.get('/getCleansers', async (req, res) => {
    try{
       const products = [...cleanser]

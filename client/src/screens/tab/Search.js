@@ -9,11 +9,11 @@ import { useSearchContext } from '../../context/SearchContext';
 import { useShelfContext } from '../../context/ShelfContext';
 
 const Search = ({navigation}) => {
-  const {addToShelf, getShelf} = useShelfContext()
-  const {getProduct, getCleansers, getToners, getSerums, getMoisturizers, getSuncreams} = useSearchContext()
+  const {addToShelf, getShelf, deleteItemInShelf} = useShelfContext()
+  const {getProduct, getCleansers, getToners, getSerums, getMoisturizers, getSuncreams, getAllProducts} = useSearchContext()
 
   const [search, setSearch] = useState()
-  const [option, setOption] = useState()
+  const [option, setOption] = useState("All")
   const [products, setProducts] = useState()
 
   const [shelf, setShelf] = useState()
@@ -24,11 +24,18 @@ const Search = ({navigation}) => {
       const shelf = await getShelf()
       setShelf(shelf)
 
-      // const products = await getProduct()
-      // setProducts(products)
     }
     sub()
   }, [shelf])
+
+  useEffect(() => {
+    const sub = async () => {
+      const products = await getAllProducts()
+      setProducts(products)
+    }
+
+    sub()
+  }, []) 
   
 
   const showItems = () => {
@@ -51,7 +58,13 @@ const Search = ({navigation}) => {
               {
                 exist ?
                 
-                <></>
+                <TouchableOpacity style={styles.addToShelf} onPress={async () => {
+                  await deleteItemInShelf(item)
+                  setItem(item)
+                  }}>
+                  {/* <AntDesign name="pluscircleo" size={20} color="black" /> */}
+                  <Ionicons name="ios-heart" size={24} color="#3D5744" />
+                </TouchableOpacity>
 
                 :
 
@@ -59,7 +72,8 @@ const Search = ({navigation}) => {
                   await addToShelf(item)
                   setItem(item)
                   }}>
-                  <AntDesign name="pluscircleo" size={20} color="black" />
+                  {/* <AntDesign name="pluscircleo" size={20} color="black" /> */}
+                  <Ionicons name="ios-heart-outline" size={24} color="#3D5744" />
                 </TouchableOpacity>
               }
 
@@ -90,16 +104,26 @@ const Search = ({navigation}) => {
     <SafeAreaView>
     <ScrollView>
     <View style={styles.page}>
+      <Text style={styles.heading}>Search</Text>
       <View style={styles.searchBox}>
-        <View style={styles.inputBox}>
-          <InputBox 
+        {/* <View style={styles.inputBox}> */}
+          <TextInput 
             placeholder="Search Products" 
             value={search}
             setter={setSearch}
             noShaddow={true}
+            style={styles.inputBoxinput}
+            onSubmitEditing={ async (txt) => {
+              console.log(txt.nativeEvent.text)
+              const here = await getProduct(txt.nativeEvent.text)
+              // console.log(here)
+              setProducts(here)
+              setOption()
+            } }
           />
-        </View>
-        <TouchableOpacity style={[styles.searchButton, {zIndex: 1000}]} onPress={async () => {
+        {/* </View> */}
+        <View style={[styles.searchButton, {zIndex: 1000}]}>
+        <TouchableOpacity  style={[styles.searchButtoninside, {zIndex: 1000}]} onPress={async () => {
           // console.log(search)
           // const here = products.filter(element => element.name.toLowerCase().includes(search.toLowerCase()));
           const here = await getProduct(search)
@@ -111,17 +135,20 @@ const Search = ({navigation}) => {
           <Ionicons 
             name="ios-search" 
             size={27} 
-            color={"black"} 
+            color={"#3D5744"} 
           />
         </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.options}>
-        {/* <TouchableOpacity style={option === "All" ? [styles.option, styles.optionSelect] : styles.option} 
+        <TouchableOpacity style={option === "All" ? [styles.option, styles.optionSelect] : styles.option} 
         onPress={async ()=> {
           setOption("All")
+          const all = await getAllProducts()
+          setProducts(all)
         }}>
           <Text style={styles.optiontxt}>All</Text>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
         <TouchableOpacity style={option === "Cleanser" ? [styles.option, styles.optionSelect] : styles.option} 
         onPress={async ()=> {
           setOption("Cleanser")
@@ -182,11 +209,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   searchButton:{
-    marginTop: 25,
+    backgroundColor: "white",
+    height: "100%",
+  },
+  searchButtoninside:{
+    borderLeftWidth: 0.5,
+    paddingHorizontal: 15,
+    marginTop: 10,
+    justifyContent: "center",
+    height: 40
   },
   inputBox:{
+    width: "75%",
+    marginRight: 15,
+
+  },
+  inputBoxinput:{
     width: "70%",
-    marginRight: 15
+    height: 60,
+    backgroundColor: "white",
+    padding: 15,
   },
   page:{
     marginVertical: 10,
@@ -194,8 +236,8 @@ const styles = StyleSheet.create({
   options:{
     flexDirection: "row",
     flexWrap: "wrap",
-    marginVertical: 25,
-    marginLeft: 30,
+    marginVertical: 15,
+    marginHorizontal: 25,
   },
   option:{
     margin: 5,
@@ -247,7 +289,13 @@ const styles = StyleSheet.create({
     top: 6,
     right: 6,
     zIndex: 1000,
-  }
+  },
+  heading:{
+    marginTop: 30,
+    marginBottom: 20,
+    textAlign: "center",
+    fontSize: 20,
+  },
 
 })
 

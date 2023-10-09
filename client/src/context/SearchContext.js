@@ -32,6 +32,16 @@ export const SearchProvider = ({children}) => {
         }
     }
 
+    const getAllProducts = async () => {
+        try{
+            const response = await instance.get("/search/getAllProducts", config);
+            return response.data
+        }
+        catch(e){
+            console.log("Error in getting products");
+        }
+    }
+
     const getCleansers = async () => {
        try{
            const response = await instance.get("/search/getCleansers", config);
@@ -90,7 +100,8 @@ export const SearchProvider = ({children}) => {
             getToners,
             getSerums,
             getMoisturizers,
-            getSuncreams
+            getSuncreams,
+            getAllProducts
         }}
         >
             {children}

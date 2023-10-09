@@ -115,7 +115,7 @@ const ProductPage = ({navigation}) => {
             </TouchableOpacity>
           </View>
           <View style={styles.itemHeadingView}>
-            <Text>{item.name}</Text>
+            <Text style={styles.itemHeadingViewName}>{item.name}</Text>
           </View>
           <View style={styles.itemView}>
             <Image style={styles.image}
@@ -319,6 +319,11 @@ const styles = StyleSheet.create({
    position: "absolute",
    bottom: 10,
    right: 2
+  },
+  itemHeadingViewName:{
+    fontSize: 20,
+    alignSelf: "center",
+    textAlign: "center"
   }
 })
 

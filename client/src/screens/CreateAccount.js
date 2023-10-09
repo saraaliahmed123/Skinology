@@ -142,8 +142,8 @@ const styles = StyleSheet.create({
     image:{
         position: "absolute",
          zIndex: -1,
-        height: 730,
-        width: 360,
+         height: "100%",
+        width: "100%",
         // height: 730,
         // width: 399,
         // height: "100%",

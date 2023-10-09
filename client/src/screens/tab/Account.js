@@ -215,6 +215,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
   },
+  // heading:{
+  //   marginTop: 30,
+  //   marginBottom: 20,
+  //   textAlign: "center",
+  //   fontSize: 20,
+  // },
   info:{
     marginVertical: 5
   },

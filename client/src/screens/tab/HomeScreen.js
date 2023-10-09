@@ -180,7 +180,7 @@ const HomeScreen = ({navigation}) => {
               }}>
                 <AntDesign name="camerao" size={20} color="white" />
               </TouchableOpacity>
-            </View>
+          </View>
           <View style={styles.morningRoutineHeader}>
             <Feather name="sun" size={20} color="#3D5744"  style={{marginRight: 10}}/>
             <Text style={styles.morningRoutineHeadertxt}>Routine</Text>
@@ -203,7 +203,7 @@ const HomeScreen = ({navigation}) => {
             <View style={styles.routine}>
                 <Card img={"Suncream"} onSelect={handleCardSelection} homePage={routine ? true : false}/>
             </View>
-            </ScrollView>
+        </ScrollView>
       </View>
       <View style={styles.routineButtonView}>
             <Button 
@@ -343,6 +343,7 @@ const HomeScreen = ({navigation}) => {
               <Text style={styles.heading}>{time === "PM" ? "Good afternoon," : "Good morning,"}</Text> 
               <Text style={[styles.heading, {fontWeight: "bold"}]}>{user.firstName}</Text> 
             </View>
+            
             <View style={styles.imageView}>
               <Image style={styles.image}
                     source={require('../../componenets/images/eye-shadow.png')}
@@ -461,7 +462,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
     marginTop: 15,
     marginBottom: 10,
-    // borderWidth: 0.5
   },
   emotion:{
     borderWidth: 0.5,
@@ -495,13 +495,11 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     marginVertical: 10,
     marginHorizontal: 5,
-    //borderWidth: 0.5,
     // marginTop: 15,
     width: "80%",
     padding: 5,
     // paddingHorizontal: 5,
     // marginHorizontal: 30,
-    // borderWidth: 0.5,
 
     shadowColor: 'grey',
     shadowOffset: { width: 0, height: 10 },
@@ -510,7 +508,6 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   calendarArrow:{
-    // borderWidth: 0.5,
     flexDirection: "row",
     width: "100%",
     justifyContent: "center",
@@ -545,9 +542,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  morningRoutine:{
-    borderWidth: 0.5
-  },
+  // morningRoutine:{
+  //   borderWidth: 0.5,
+  //   borderColor: "red"
+  // },
   morningRoutineHeader:{
     flexDirection: "row",
     justifyContent: "center",
