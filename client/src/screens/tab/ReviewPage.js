@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, TouchableOpacity, View, StyleSheet, TextInput } from 'react-native'
+import { Text, TouchableOpacity, View, StyleSheet, TextInput, Image, ScrollView } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Ionicons } from '@expo/vector-icons';
 import Button from '../../componenets/Button';
@@ -30,6 +30,7 @@ const ReviewPage = ({navigation}) => {
 
   return (
     <SafeAreaView>
+    <ScrollView>
         <View style={styles.page}>
           <View style={styles.top}>
             <TouchableOpacity
@@ -41,56 +42,65 @@ const ReviewPage = ({navigation}) => {
             </TouchableOpacity>
           </View>
           <View style={styles.itemHeadingView}>
+
+            
             <Text style={styles.itemHeading}>Your Review</Text>
           </View>
           <View style={styles.commentBigView}>
-            <View>
-                <Text style={{marginLeft: 6}}>Comment:</Text>
-                <View style={styles.commentView}>
-                    <TextInput 
-                        style={styles.input} 
-                        value={comment}
-                        onChangeText = {(text) => setComment(text)}
-                    />
-                </View>
+            <View style={styles.itemView}>
+                <Image style={styles.image}
+                    source={{uri: item.image}}
+                />
             </View>
             <View>
-                <Text style={{marginLeft: 6, marginTop: 10}}>Stars:</Text>
-                <View style={{flexDirection: "row", marginTop: 10, marginBottom: 30}}>
+                {/* <Text style={{marginLeft: 6, marginTop: 10, textAlign: "center"}}>How much did you like the product?:</Text> */}
+                <View style={{flexDirection: "row", marginTop: 20, marginBottom: 15, justifyContent: "center"}}>
                     <TouchableOpacity onPress={() => {
                         setStars(1)
                         // console.log(stars)
                     }}>
-                        <AntDesign style={{margin: 6}} name="star" size={45} color={stars !== 0 ? "#FCCF04" : "black"} />
+                        <AntDesign style={{margin: 6}} name="star" size={30} color={stars !== 0 ? "#FCCF04" : "black"} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => {
                         setStars(2)
                         // console.log(stars)
                     }}>
-                        <AntDesign style={{margin: 6}} name="star" size={45} color={stars >= 2 ? "#FCCF04" : "black"} />
+                        <AntDesign style={{margin: 6}} name="star" size={30} color={stars >= 2 ? "#FCCF04" : "black"} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => {
                         setStars(3)
                         // console.log(stars)
                     }}>
-                        <AntDesign style={{margin: 6}} name="star" size={45} color={stars >= 3 ? "#FCCF04" : "black"} />
+                        <AntDesign style={{margin: 6}} name="star" size={30} color={stars >= 3 ? "#FCCF04" : "black"} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => {
                         setStars(4)
                         // console.log(stars)
                     }}>
-                        <AntDesign style={{margin: 6}} name="star" size={45} color={stars >= 4 ? "#FCCF04" : "black"} />
+                        <AntDesign style={{margin: 6}} name="star" size={30} color={stars >= 4 ? "#FCCF04" : "black"} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => {
                         setStars(5)
                         // console.log(stars)
                     }}>
-                        <AntDesign style={{margin: 6}} name="star" size={45} color={stars >= 5 ? "#FCCF04" : "black"} />
+                        <AntDesign style={{margin: 6}} name="star" size={30} color={stars >= 5 ? "#FCCF04" : "black"} />
                     </TouchableOpacity>
+                </View>
+
+                <View>
+                    {/* <Text style={{marginLeft: 6}}>Comment:</Text> */}
+                    <View style={styles.commentView}>
+                        <TextInput 
+                            style={styles.input} 
+                            value={comment}
+                            placeholder="Write a review..." 
+                            onChangeText = {(text) => setComment(text)}
+                        />
+                    </View>
                 </View>
             </View>
 
-            <View style={{marginLeft: 6}}>
+            <View style={{marginHorizontal: 15, marginVertical: 15}}>
                 <Button 
                     text={"SAVE REVIEW"}
                     onPress={async () => {
@@ -106,6 +116,7 @@ const ReviewPage = ({navigation}) => {
 
           </View>
         </View>
+    </ScrollView>
     </SafeAreaView>
   )
 }
@@ -119,18 +130,20 @@ const styles = StyleSheet.create({
       // borderBottomWidth: 0.5
     },
     page:{
-      margin: 10,
+      margin: 7,
       justifyContent: "center",
     },
     itemHeadingView:{
         marginHorizontal: 30,
+        marginBottom: 4,
         alignItems: "center"
     },
     itemHeading:{
         fontSize: 18
     },
     commentView:{
-        height: 200
+        height: 200,
+        marginHorizontal: 7
         // padding: 5
     },
     commentBigView:{
@@ -140,10 +153,26 @@ const styles = StyleSheet.create({
     input:{
         backgroundColor: "#D9D9D9",
         padding: 20,
+        paddingTop: 25,
         margin: 10,
         borderRadius: 5,
-        height: "90%"
-    }
+        height: "90%",
+        alignContent: "flex-start",
+        textAlign: "left",
+        textAlignVertical: "top"
+    },
+    itemView:{
+        backgroundColor: "white",
+        marginHorizontal: 20,
+        // marginTop: 30,
+        height: 250,
+        borderRadius: 10,
+        alignItems: "center"
+      },
+      image:{
+        width: "80%",
+        height: 230
+      },
 })
 
 export default ReviewPage

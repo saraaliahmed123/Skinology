@@ -211,6 +211,10 @@ const styles = StyleSheet.create({
   searchButton:{
     backgroundColor: "white",
     height: "100%",
+    // borderTopWidth: 0.75,
+    // borderRightWidth: 0.75,
+    // borderBottomWidth: 0.75,
+    // borderColor: "#3D5744"
   },
   searchButtoninside:{
     borderLeftWidth: 0.5,
@@ -229,6 +233,10 @@ const styles = StyleSheet.create({
     height: 60,
     backgroundColor: "white",
     padding: 15,
+    // borderTopWidth: 0.75,
+    // borderLeftWidth: 0.75,
+    // borderBottomWidth: 0.75,
+    // borderColor: "#3D5744"
   },
   page:{
     marginVertical: 10,

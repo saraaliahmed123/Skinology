@@ -115,7 +115,13 @@ const ProductPage = ({navigation}) => {
             </TouchableOpacity>
           </View>
           <View style={styles.itemHeadingView}>
-            <Text style={styles.itemHeadingViewName}>{item.name}</Text>
+           
+            {
+              item.brand ? 
+              <Text style={styles.itemHeadingViewBrand}>{item.brand}</Text>
+              : <></>
+            }
+             <Text style={styles.itemHeadingViewName}>{item.name}</Text>
           </View>
           <View style={styles.itemView}>
             <Image style={styles.image}
@@ -215,6 +221,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     alignItems: "center"
   },
+  itemHeadingViewBrand:{
+    marginBottom: 5,
+    color: "#3D5744"
+  },
   itemView:{
     backgroundColor: "white",
     marginHorizontal: 30,
@@ -238,6 +248,7 @@ const styles = StyleSheet.create({
   ingredients:{
     marginHorizontal: 30,
     marginTop: 25,
+    alignItems: "center"
   },
   star:{
     width: 30,
