@@ -28,14 +28,14 @@ const Search = ({navigation}) => {
     sub()
   }, [shelf])
 
-  useEffect(() => {
-    const sub = async () => {
-      const products = await getAllProducts()
-      setProducts(products)
-    }
+  // useEffect(() => {
+  //   const sub = async () => {
+  //     const products = await getAllProducts()
+  //     setProducts(products)
+  //   }
 
-    sub()
-  }, []) 
+  //   sub()
+  // }, []) 
   
 
   const showItems = () => {

@@ -14,12 +14,11 @@ import { useUserContext } from '../../context/UserContext';
 import { useRoutineContext } from '../../context/RoutineContext';
 import { useRecordContext } from '../../context/RecordContext';
 import ConfettiCannon from 'react-native-confetti-cannon';
-import { Ionicons } from '@expo/vector-icons';
 
 const dates = eachWeekOfInterval(
   {
   start:  subDays(new Date(), 7),
-  end: addDays(new Date(), 7)
+  end: addDays(new Date(), 14)
   },
   {
     weekStartsOn: 1,
@@ -58,8 +57,7 @@ const HomeScreen = ({navigation}) => {
   const {user} = useUserContext()
   const {routine} = useRoutineContext()
   const {CreateRecord, todaysRecords, getTodaysRecords, getRecords, records} = useRecordContext()
-  const [colour, setColour] = useState()
-
+  // const [skinFacts, setSkinFacts] = useState()
 
   useEffect(() => {
     const sub = async () => {
@@ -118,7 +116,8 @@ const HomeScreen = ({navigation}) => {
   const displayCalendar = () => {
     return (
     <View style={styles.calendar}>
-      <PagerView initialPage={1} >
+      <PagerView initialPage={1}
+      >
       {
       dates.map((week, i) => {
         return (
@@ -333,48 +332,10 @@ const HomeScreen = ({navigation}) => {
       }
     }
 
-  
-
   return (
     <SafeAreaView>
     <ScrollView>
     <View style={styles.page}>
-      
-        <View style={styles.notsetting}>
-
-            {
-              colour ?
-
-              <TouchableOpacity 
-              style={{marginHorizontal: 15}}
-              onPress={() => {
-                setColour()
-              }}>
-                <Ionicons name="ios-notifications" size={24} color="#3D5744" />
-              </TouchableOpacity>
-
-              :
-
-              <TouchableOpacity 
-              style={{marginHorizontal: 15}}
-              onPress={() => {
-                setColour("pressed")
-              }}>
-                <Ionicons name="ios-notifications-outline" size={24} color="black" />
-              </TouchableOpacity>
-            }
-
-        <TouchableOpacity 
-          onPress={() => {
-              navigation.navigate("UpdatePage")
-              }}>
-            <Ionicons name="ios-settings-outline" size={24} color="black" />
-          </TouchableOpacity>
-
-          
-        </View>
-
-
         <View style={styles.top}>
           <Text style={styles.topDate}>{new Date().toDateString()}</Text>
           <View style={styles.topExtra}>
@@ -391,25 +352,22 @@ const HomeScreen = ({navigation}) => {
            </View>
         </View>
 
+      <View style={styles.calendarArrow}>
+        <TouchableOpacity style={{alignSelf: "center", width: 18}} >
+          <MaterialIcons name="arrow-back-ios" size={20} color="black" />
+        </TouchableOpacity>
+        {displayCalendar()}
+        <TouchableOpacity style={{alignSelf: "center", width: 32}} >
+        <MaterialIcons name="arrow-forward-ios" size={20} color="black"/>
+        </TouchableOpacity>
+      </View>
 
-
-        <View style={styles.calendarArrow}>
-          {displayCalendar()}
-        </View>
-
-
-
-
-
-         {showRoutine()}
+       {showRoutine()}
 
 
        {/* <View style={styles.itemHeadingView}>
             <Text style={styles.itemHeading}>Articles</Text>
           </View> */}
-
-        <View style={styles.routineBox}>
-        </View>
 
         <View style={styles.skinLog}>
             <Image style={styles.imageSkin}
@@ -426,9 +384,6 @@ const HomeScreen = ({navigation}) => {
         </View>
 
         {showConfetti()}
-
-
-      
 
 
 
@@ -450,16 +405,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     // margin: 30,
     marginHorizontal: 30,
-    marginTop: 20,
-    marginBottom:25,
-    // borderWidth: 0.5
-  },
-  notsetting:{
-    flexDirection: "column",
-    marginHorizontal: 30,
     marginTop: 30,
-    flexDirection: "row",
-    justifyContent: "flex-end"
+    marginBottom:25,
   },
   topExtra:{
     flexDirection: "row",
@@ -484,7 +431,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     //marginTop: 25,
     margin: 30,
-    marginTop:10,
+    // marginTop:20,
     marginBottom: 45,
 
     shadowColor: '#000',
@@ -542,28 +489,27 @@ const styles = StyleSheet.create({
   },
   day:{
     alignItems: "center",
-    // marginHorizontal: 10,
-    // marginTop: 10,
-    // marginBottom: 6,
-    backgroundColor: "white",
-    padding: 13,
-    margin: 15,
-    borderRadius: 10,
+    marginHorizontal: 10,
+    marginTop: 10,
+    marginBottom: 6
     // borderWidth:0.5
   },
   calendar:{
-    // borderRadius: 5,
-    // backgroundColor: "white",
-    // marginVertical: 10,
-    // marginHorizontal: 5,
-    width: 550,
-    // padding: 5,
+    borderRadius: 5,
+    backgroundColor: "white",
+    marginVertical: 10,
+    marginHorizontal: 5,
+    // marginTop: 15,
+    width: "80%",
+    padding: 5,
+    // paddingHorizontal: 5,
+    // marginHorizontal: 30,
 
-    // shadowColor: 'grey',
-    // shadowOffset: { width: 0, height: 10 },
-    // shadowOpacity: 0.2,
-    // shadowRadius: 5,  
-    // elevation: 5,
+    shadowColor: 'grey',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,  
+    elevation: 5,
   },
   calendarArrow:{
     flexDirection: "row",
@@ -584,19 +530,16 @@ const styles = StyleSheet.create({
     // margin: 5,
     height: 40,
     width: 40,
-    // borderRadius: 40/2,
-     borderRadius: 10,
+    borderRadius: 40/2,
     justifyContent: "center",
     alignItems: "center",
     borderWidth: 0.5,
     borderColor: "#3D5744",
 
     backgroundColor: "#3D5744",
-    marginTop: 5
   },
   notSelected:{
     // margin: 5,
-    marginTop: 5,
     height: 40,
     width: 40,
     // borderRadius: 40/2,
@@ -645,22 +588,6 @@ const styles = StyleSheet.create({
     //  shadowRadius: 5,  
     //  elevation: 8,
   },
-  // routineBox:{
-  //   borderWidth: 0.5,
-  //   borderRadius: 10,
-  //   height: 330,
-  //   backgroundColor: "#ECECEE",
-  //   margin: 15,
-  //   padding: 15,
-  //   // borderTopWidth: 0.5,
-  //   borderColor: "#CBC9C9",
-
-  //   //  shadowColor: '#000',
-  //   //  shadowOffset: { width: 0, height: 10 },
-  //   //  shadowOpacity: 0.3,
-  //   //  shadowRadius: 3,  
-  //   //  elevation: 6,
-  // },
   morningRoutineHeadertxt:{
     // marginTop: 20,
     // textAlign: "center",
@@ -718,9 +645,6 @@ const styles = StyleSheet.create({
   itemHeading:{
     fontSize: 18
   },
-  articles:{
-    textAlign: "center"
-  }
 
 })
 

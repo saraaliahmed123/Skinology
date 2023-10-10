@@ -107,13 +107,15 @@ const UpdatePage = ({navigation}) => {
                     
                 </View>
             <View style={styles.buttonView}>
-              <View style={{marginBottom: 20}}>
+              {/* <View style={{marginBottom: 20}}>
               <Button text={"Done"} onPress={() => {
                 if (skinConcern && skinConcern.length !== 0)
                 {
-                setInformation((prev) => {
-                  return {...prev, "skinConcern": skinConcern}
-                })
+                  setInformation((prev) => {
+                    return {...prev, "skinConcern": skinConcern}
+                  })
+                  
+
                 }
                 else
                 {
@@ -122,11 +124,58 @@ const UpdatePage = ({navigation}) => {
               }}
               sty={"#3D5744"}
               />
-              </View>
+              </View> */}
         <Button 
             text={"Save"}
             onPress={async ()=> {
+              // if (skinConcern && skinConcern.length !== 0)
+              //   {
+              //   try{
+              //     const hi = await EditInformation(user._id, skinType, skinConcern)
+              //     try{    
+              //       const here = await createRoutine()
+              //       // console.log(here[0])
+              //       try{
+              //         const sup = await editRoutine(user._id, here)
+              //        try{
+              //          const routine = await getRoutine(user._id)
+              //          await addToShelf(routine.Cleanser)
+              //          await addToShelf(routine.Toner)
+              //          await addToShelf(routine.Serum)
+              //          await addToShelf(routine.Moisturizer)
+              //          await addToShelf(routine.Suncream)
+              //        }
+              //        catch(e){
+    
+              //        }
+              //      }
+              //      catch(e){
+    
+              //      }
+              //     }
+              //     catch(e){
+
+              //     }
+              //   }
+              //   catch(e)
+              //   {
+
+              //   }
+              //   setSelected("Skin Type")
+              //   setSkinType()
+              //   setSkinConcern()
+              //   navigation.navigate("HomeScreen")
+              // }
+              // else
+              // {
+              //   alert("Please select a skin concern")
+              // }
               if (skinConcern && skinConcern.length !== 0)
+                {
+                  setInformation((prev) => {
+                    return {...prev, "skinConcern": skinConcern}
+                  })
+                  if (skinConcern && skinConcern.length !== 0)
                 {
                 try{
                   const hi = await EditInformation(user._id, skinType, skinConcern)
@@ -162,12 +211,18 @@ const UpdatePage = ({navigation}) => {
                 setSelected("Skin Type")
                 setSkinType()
                 setSkinConcern()
-                navigation.navigate("Account")
+                navigation.navigate("HomeScreen")
               }
               else
               {
                 alert("Please select a skin concern")
               }
+
+                }
+                else
+                {
+                  alert("Please select a skin concern")
+                }
 
             }}
             sty={"#3D5744"}
@@ -206,7 +261,7 @@ const UpdatePage = ({navigation}) => {
             </View>
             <View style={styles.buttonView}>
                 <Button 
-                    text={"Done"}
+                    text={"Next"}
                     onPress={()=> {
                       if (skinType && skinType.length !== 0)
                       {
@@ -232,13 +287,16 @@ const UpdatePage = ({navigation}) => {
     <SafeAreaView>
     <ScrollView>
     <View style={styles.page}>
-        <View>
-            <TouchableOpacity
+
+          <TouchableOpacity
             style={styles.back}
-            onPress={() => {navigation.navigate("Account")}}
+            onPress={() => {navigation.navigate("HomeScreen")}}
             >
                 <Ionicons name="chevron-back" size={24} color="black" />
             </TouchableOpacity>
+
+
+        <View>
 
 
           <View style={styles.headingView}>
@@ -247,12 +305,12 @@ const UpdatePage = ({navigation}) => {
 
           <View style={styles.top}>
             <TouchableOpacity style={selected === "Skin Type" ? styles.profileButton : styles.profileButtonNot} onPress={()=> {
-              // setSelected("Skin Type")
+              setSelected("Skin Type")
             }}>
               <Text style={selected === "Skin Type" ? styles.profileButtontxt :styles.profileButtontxtNot}>Skin Type</Text>
             </TouchableOpacity>
             <TouchableOpacity style={selected === "Skin Concern" ? styles.profileButton : styles.profileButtonNot} onPress={()=> {
-              // setSelected("Skin Concern")
+              setSelected("Skin Concern")
             }}>
               <Text style={selected === "Skin Concern" ? styles.profileButtontxt :styles.profileButtontxtNot} >Skin Concern</Text>
             </TouchableOpacity>
@@ -276,7 +334,7 @@ const UpdatePage = ({navigation}) => {
 
 const styles = StyleSheet.create({
     page:{
-      margin: 30,
+      margin: 50,
       // marginHorizontal: 30,
       alignItems: "center",
     },
@@ -316,7 +374,8 @@ const styles = StyleSheet.create({
     // bottom: 0,
     height: 30,
     width: 35,
-    marginBottom: "10%",
+    marginVertical: "10%",
+    marginTop: 20
   },
   button:{
     width: "100%",
@@ -344,6 +403,10 @@ const styles = StyleSheet.create({
     },
     buttonView:{
         marginTop: "10%"
+    },
+    back:{
+      alignSelf: "flex-start",
+      marginRight: 15
     }
 })
 

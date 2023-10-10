@@ -42,8 +42,6 @@ const ReviewPage = ({navigation}) => {
             </TouchableOpacity>
           </View>
           <View style={styles.itemHeadingView}>
-
-            
             <Text style={styles.itemHeading}>Your Review</Text>
           </View>
           <View style={styles.commentBigView}>

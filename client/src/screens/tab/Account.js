@@ -134,13 +134,13 @@ const Account = ({navigation}) => {
     <View style={styles.page}>
         <View>
           <View style={styles.headingView}>
-           <View style={styles.buttonView}>
+           {/* <View style={styles.buttonView}>
               <TouchableOpacity style={styles.button} onPress={()=> {
                 navigation.navigate("UpdatePage")
               }}>
                   <AntDesign name="edit" size={20} color="white" />
               </TouchableOpacity>
-            </View>
+            </View> */}
             <Text style={styles.heading}>Profile</Text>
             <View style={styles.buttonView}>
               <TouchableOpacity style={[styles.button, {backgroundColor:"#6A3434"}]} onPress={ ()=> {
