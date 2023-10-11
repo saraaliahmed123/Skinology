@@ -170,59 +170,70 @@ const UpdatePage = ({navigation}) => {
               // {
               //   alert("Please select a skin concern")
               // }
+
+              console.log(skinConcern)
               if (skinConcern && skinConcern.length !== 0)
                 {
-                  setInformation((prev) => {
+                  await setInformation((prev) => {
                     return {...prev, "skinConcern": skinConcern}
                   })
-                  if (skinConcern && skinConcern.length !== 0)
-                {
-                try{
-                  const hi = await EditInformation(user._id, skinType, skinConcern)
-                  try{    
-                    const here = await createRoutine()
-                    // console.log(here[0])
+                  try{
+                    if (skinConcern && skinConcern.length !== 0 && information.skinConcern)
+                    {
                     try{
-                      const sup = await editRoutine(user._id, here)
-                     try{
-                       const routine = await getRoutine(user._id)
-                       await addToShelf(routine.Cleanser)
-                       await addToShelf(routine.Toner)
-                       await addToShelf(routine.Serum)
-                       await addToShelf(routine.Moisturizer)
-                       await addToShelf(routine.Suncream)
-                     }
-                     catch(e){
+                      const hi = await EditInformation(user._id, skinType, skinConcern)
+                      console.log("here")
+                      console.log(hi)
     
-                     }
-                   }
-                   catch(e){
     
-                   }
+                      try{    
+                        const here = await createRoutine()
+                        try{
+                          const sup = await editRoutine(user._id, here)
+                        try{
+                          const routine = await getRoutine(user._id)
+                          await addToShelf(routine.Cleanser)
+                          await addToShelf(routine.Toner)
+                          await addToShelf(routine.Serum)
+                          await addToShelf(routine.Moisturizer)
+                          await addToShelf(routine.Suncream)
+                        }
+                        catch(e){
+        
+                        }
+                      }
+                      catch(e){
+        
+                      }
+                      }
+                      catch(e){
+    
+                      }
+                    }
+                    catch(e)
+                    {
+    
+                    }
+                    setSelected("Skin Type")
+                    setSkinType()
+                    setSkinConcern()
+                    navigation.navigate("HomeScreen")
+                    }
+                    else
+                  {
+                    alert("Please select a skin concern")
+                    }
                   }
                   catch(e){
 
                   }
                 }
-                catch(e)
-                {
-
-                }
-                setSelected("Skin Type")
-                setSkinType()
-                setSkinConcern()
-                navigation.navigate("HomeScreen")
-              }
-              else
-              {
-                alert("Please select a skin concern")
-              }
-
-                }
                 else
                 {
                   alert("Please select a skin concern")
                 }
+
+               
 
             }}
             sty={"#3D5744"}

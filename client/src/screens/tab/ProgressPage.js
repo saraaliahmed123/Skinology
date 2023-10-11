@@ -94,6 +94,13 @@ const ShelfPage = ({navigation}) => {
                 {week.map((day, key) => {
                   const txt = format(day, 'EEE')
                   let exist;
+                  let dots = 0;
+                  if (records)
+                  {
+                    exist = records.filter(element => new Date(element.date).toDateString() === day.toDateString());
+                    dots = exist.length
+                    // console.log(dots)
+                  }
                   return(
                     <View key={key} style={styles.day}>
                       <TouchableOpacity style={{alignItems: "center"}}
@@ -106,7 +113,7 @@ const ShelfPage = ({navigation}) => {
                         <Text style={day.toDateString() === new Date().toDateString() ? {color: "white"} : {color: "black"}}>{day.getDate()}</Text>
                       </View>
   
-                      {/* <View style={{flexDirection: "row"}}>
+                      <View style={{flexDirection: "row"}}>
                         {
                           exist ?
                           exist.map((item, key) => {
@@ -117,9 +124,9 @@ const ShelfPage = ({navigation}) => {
                           :
                           <></>
                           
-                        } */}
+                        }
           
-                        {/* </View> */}
+                        </View>
                         
                         </TouchableOpacity>
   
@@ -263,6 +270,9 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
       },
+      calendarArrow:{
+        marginBottom: 10
+      }
 
 
 })

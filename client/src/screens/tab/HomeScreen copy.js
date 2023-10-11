@@ -341,7 +341,7 @@ const HomeScreen = ({navigation}) => {
           <View style={styles.topExtra}>
             <View style={styles.headingView}>
               <Text style={styles.heading}>{time === "PM" ? "Good afternoon," : "Good morning,"}</Text> 
-              <Text style={[styles.heading, {fontWeight: "bold"}]}>{user?.firstName}</Text> 
+              <Text style={[styles.heading, {fontWeight: "bold"}]}>{user.firstName}</Text> 
             </View>
             
             <View style={styles.imageView}>

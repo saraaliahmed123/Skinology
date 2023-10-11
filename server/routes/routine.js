@@ -64,6 +64,7 @@ router.post('/createRoutine', async (req, res) => {
              myCleanser = cleanserList[Math.floor(Math.random()*cleanserList.length)]
           }
           else{
+            console.log(req.body.skinConcern)
              req.body.skinConcern.forEach((val) => {
                 const hi = types.filter(item => item.skinConcern === val)
                 cleanserList.push(...hi)

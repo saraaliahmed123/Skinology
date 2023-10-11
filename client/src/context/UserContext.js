@@ -96,6 +96,8 @@ export const UserProvider = ({children}) => {
             const response = await instance.patch("/user/updateInformation", {"id": id, "skinType": skinType, "skinConcern": skinConcern} ,config);
            // console.log(response.data)
             setUser(response.data)
+            console.log("here")
+            console.log(information)
             return information
 
         }
