@@ -6,7 +6,7 @@ Welcome to the Skincare Recommendation App! This app is built using React Native
 
 1. Clone the repository to your local machine
 
-git clone https://gitlab.kingston.ac.uk/CI6330-2022-23-K2008620/Skinology.git
+git clone https://github.com/saraaliahmed123/Skinology.git
 
 2. Install the required dependencies for both client and server folders by splitting your terminal 
 
