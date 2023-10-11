@@ -83,9 +83,7 @@ export const UserProvider = ({children}) => {
     const signOut = () => {
         try{
             setUser()
-            setRoutine()
-            setInformation()
-            setWeekDays()
+            return user
         }
         catch(e){
             console.log("Could not sign out")

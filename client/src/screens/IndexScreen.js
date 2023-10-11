@@ -5,11 +5,12 @@ import Button from '../componenets/Button'
 import { useUserContext } from '../context/UserContext'
 
 const IndexScreen = ({navigation}) => {
-    const {getAllUsers} = useUserContext()
+    const {getAllUsers, user} = useUserContext()
 
     useEffect(() => {
         const sub = async () => {
             await getAllUsers();
+            console.log(user)
         }
         sub()
     }, [])

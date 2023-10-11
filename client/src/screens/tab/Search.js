@@ -28,14 +28,14 @@ const Search = ({navigation}) => {
     sub()
   }, [shelf])
 
-  // useEffect(() => {
-  //   const sub = async () => {
-  //     const products = await getAllProducts()
-  //     setProducts(products)
-  //   }
+  useEffect(() => {
+    const sub = async () => {
+      const products = await getAllProducts()
+      setProducts(products)
+    }
 
-  //   sub()
-  // }, []) 
+    sub()
+  }, []) 
   
 
   const showItems = () => {
@@ -302,7 +302,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginBottom: 20,
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 23,
   },
 
 })

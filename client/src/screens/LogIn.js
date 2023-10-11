@@ -81,8 +81,6 @@ const styles = StyleSheet.create({
     page:{
         height: "100%",
         flexDirection: "column",
-        borderWidth: 0.5,
-        borderColor: "red"
     },
     heading:{
         fontSize: 45,

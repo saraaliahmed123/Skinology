@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AntDesign, MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 
 import IndexScreen from './src/screens/IndexScreen';
 import CreateAccount from './src/screens/CreateAccount';
@@ -19,6 +20,8 @@ import GenderPage from './src/screens/GenderPage';
 import AgeScreen from './src/screens/AgeScreen';
 import ResultsPage from './src/screens/ResultsPage';
 import TermsConditions from './src/screens/TermsConditions';
+
+import ProgressPage from './src/screens/tab/ProgressPage';
 
 import ProductPage from './src/screens/tab/ProductPage';
 import CameraPage from './src/screens/tab/CameraPage';
@@ -95,13 +98,22 @@ const Main = () => {
         }}
       />
       <Tab.Screen 
+        name="ProgressPage" 
+        component={ProgressPage} 
+        options={{ 
+          tabBarIcon: ({ focused  }) => (
+            <AntDesign name="calendar" size={27} color="white" />
+          )
+        }}
+      />
+      <Tab.Screen 
           name="Account" 
           component={Account} 
           options={{ 
             tabBarIcon: ({ focused  }) => (
             <MaterialCommunityIcons 
             name="account-circle-outline" 
-            size={28} 
+            size={29} 
             color={focused ? "white" : "white"} />
             )
           }}
@@ -113,6 +125,7 @@ const Main = () => {
            tabBarButton: () => null,
         }}
       />
+      
     </Tab.Navigator>
   );
 

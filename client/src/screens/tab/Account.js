@@ -8,10 +8,12 @@ import { useUserContext } from '../../context/UserContext'
 import { Feather } from '@expo/vector-icons';
 import { useRecordContext } from '../../context/RecordContext'
 import { useShelfContext } from '../../context/ShelfContext'
+import Card from '../../componenets/Card'
+
 
 const Account = ({navigation}) => {
   const {user, signOut} = useUserContext()
-  const {getRecords, records} = useRecordContext()
+  const {getRecords, records, routine} = useRecordContext()
   const {getShelf, deleteItemInShelf} = useShelfContext()
 
   const [shelf, setShelf] = useState()
@@ -60,20 +62,40 @@ const Account = ({navigation}) => {
           <View style={styles.infoView}>
             <View style={styles.info}>
               <Text style={styles.infotxt}>First Name</Text>
-              <Text style={styles.input}>{user.firstName}</Text>
+              <Text style={styles.input}>{user?.firstName}</Text>
             </View>
             <View style={styles.info}>
               <Text style={styles.infotxt}>Last Name</Text>
-              <Text style={styles.input}>{user.lastName}</Text>
+              <Text style={styles.input}>{user?.lastName}</Text>
             </View>
             <View style={styles.info}>
               <Text style={styles.infotxt}>Email</Text>
-              <Text style={styles.input}>{user.email}</Text>
+              <Text style={styles.input}>{user?.email}</Text>
             </View>
-            <Text style={[styles.infotxt, {marginTop: 20}]}>Progress photos:</Text>
+            <Text style={[styles.infotxt, {marginTop: 20}]}>Skin type</Text>
             <View style={styles.contentView}>
-           
-              {showImages()}
+              <View style={[styles.cards, {marginTop: 35, width: "100%"}]}>
+                  {user?.skinType.map((item, key) => {
+                      return(
+                          <Card img={item} key={key} resultsPage={true} account={true}/>
+                      )
+                  })}
+              </View>
+
+              
+            </View>
+
+            <Text style={[styles.infotxt, {marginTop: 20}]}>Skin concern</Text>
+            <View style={styles.contentView}>
+              <View style={[styles.cards, {marginTop: 35}]}>
+                  {user?.skinConcern.map((item, key) => {
+                      return(
+                          <Card img={item} key={key} resultsPage={true} account={true}/>
+                      )
+                  })}
+              </View>
+
+              
             </View>
             
           </View>
@@ -132,24 +154,34 @@ const Account = ({navigation}) => {
     <SafeAreaView>
     <ScrollView>
     <View style={styles.page}>
-        <View>
-          <View style={styles.headingView}>
-           {/* <View style={styles.buttonView}>
-              <TouchableOpacity style={styles.button} onPress={()=> {
-                navigation.navigate("UpdatePage")
-              }}>
-                  <AntDesign name="edit" size={20} color="white" />
-              </TouchableOpacity>
-            </View> */}
-            <Text style={styles.heading}>Profile</Text>
-            <View style={styles.buttonView}>
-              <TouchableOpacity style={[styles.button, {backgroundColor:"#6A3434"}]} onPress={ ()=> {
-                // await signOut()
-                navigation.navigate("IndexScreen")
+        {/* <View> */}
+
+          <View style={styles.buttonView}>
+              <TouchableOpacity style={[styles.button, {backgroundColor:"#6A3434"}]} 
+              
+              onPress={ async () => {
+               
+                try{
+                  const sign = await signOut()
+                  console.log(sign)
+                  if (!sign){
+                      navigation.navigate("IndexScreen")
+                  }
+                
+                  
+                }
+                catch(e){
+
+                }
+                
               }}>
                   <Feather name="log-out" size={20} color="white" />
               </TouchableOpacity>
             </View>
+
+
+          <View style={styles.headingView}>
+            <Text style={styles.heading}>Profile</Text>
           </View>
 
           <View style={styles.top}>
@@ -164,7 +196,7 @@ const Account = ({navigation}) => {
               <Text style={selected === "Shelf" ? styles.profileButtontxt :styles.profileButtontxtNot} >Shelf</Text>
             </TouchableOpacity>
           </View>
-        </View>
+        {/* </View> */}
 
 
         {selectedProfile()}
@@ -190,7 +222,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#D9D9D9",
     justifyContent: "space-between",
     borderRadius: 20,
-    width: 250
+    width: 250,
+    marginBottom: 10
   },
   profileButton:{
     borderRadius: 20,
@@ -211,9 +244,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   heading:{
-    marginBottom: 30,
+    // marginBottom: 30,
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 23,
   },
   // heading:{
   //   marginTop: 30,
@@ -234,13 +267,29 @@ const styles = StyleSheet.create({
     marginLeft: "4%",
     marginTop: 5
   },
+  // input: {
+  //   backgroundColor: "#D9D9D9",
+  //   padding: 20,
+  //   marginHorizontal: 10,
+  //   marginTop: 10,
+  //   // borderRadius: 30,
+  //   borderRadius: 5,
+
+  //   shadowColor: 'grey',
+  //   shadowOffset: { width: 0, height: 10 },
+  //   shadowOpacity: 0.2,
+  //   shadowRadius: 5,  
+  //   elevation: 5,
+  // },
   input: {
-    backgroundColor: "#D9D9D9",
+    backgroundColor: "white",
     padding: 20,
     marginHorizontal: 10,
     marginTop: 10,
     // borderRadius: 30,
     borderRadius: 5,
+    // borderWidth: 0.5,
+    // borderColor: "#3D5744",
 
     shadowColor: 'grey',
     shadowOffset: { width: 0, height: 10 },
@@ -282,16 +331,20 @@ const styles = StyleSheet.create({
     // position: "absolute",
     // bottom: 0,
     height: 30,
-    width: 35,
-    marginBottom: "10%"
+    width: "100%",
+    alignItems: "flex-end",
+    // marginBottom: "10%",
+    // borderWidth: 0.5
   },
   headingView:{
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
+    justifyContent: "center",
+    // borderWidth: 0.5,
+    width: "100%",
   },
   button:{
-    width: "100%",
+    width: "10%",
     height: "100%",
     backgroundColor: "#3D5744",
     borderRadius: 5,
@@ -311,14 +364,22 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   contentView:{
-    marginHorizontal: 5,
-    marginTop: 15,
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#D9D9D9",
-    borderRadius: 5
+    backgroundColor: "white",
+    borderRadius: 5,
+    marginHorizontal: 10,
+    marginTop: 10,
+    borderRadius: 5,
+
+    shadowColor: 'grey',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,  
+    elevation: 5,
+
   },
   cross:{
     alignSelf: "flex-end",
@@ -331,7 +392,80 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     height: 170
-  }
+  },
+  products:{
+    // marginVertical: 5,
+    marginHorizontal: 5,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignItems: "center",
+    // marginTop: 30,
+    width: "100%"
+  },
+  product:{
+    width: "45%",
+    // height: "8%",
+    marginHorizontal: 8,
+    marginVertical: 20,
+    padding: 5,
+    backgroundColor: "white",
+    borderRadius: 10,
+    // borderWidth: 0.5
+
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity:  0.4,
+    shadowRadius: 3,
+    elevation: 5,
+ 
+  },
+  image:{
+    width: "100%",
+    height: "100%",
+    borderWidth: 0.5
+  },
+  producttxt:{
+    textAlign: "center",
+    fontSize: 10
+  },
+  producttxtBox:{
+    // marginTop: 7,
+    marginBottom: 5,
+    // borderWidth: 0.5
+  },
+  cross:{
+    // alignSelf: "flex-end",
+    // marginVertical: 5,
+    // marginLeft: 10
+    position: 'absolute',
+    right:     0,
+    top:      0,
+    zIndex: 100,
+    margin: 3
+  },
+  itemOpacity:{ 
+    backgroundColor: "white", 
+    justifyContent: "space-around", 
+    overflow: "hidden",
+    padding: 10,
+    borderRadius: 10,
+    height: 170
+  },
+  heading:{
+    marginTop: 5,
+    marginBottom: 27,
+    textAlign: "center",
+    fontSize: 23,
+  },
+  cards:{
+    flexDirection: "row",
+    justifyContent: "center",
+    flexWrap: "wrap",
+    alignItems: "center",
+    marginHorizontal: 10,
+    justifyContent: "space-evenly"
+},
 })
 
 export default Account

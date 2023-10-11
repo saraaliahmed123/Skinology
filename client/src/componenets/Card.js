@@ -20,23 +20,23 @@ const images = {
 }
 
 
-const Card = ({ img, onSelect, noSelect, resultsPage, homePage }) => {
+const Card = ({ img, onSelect, noSelect, resultsPage, homePage, account }) => {
   const {routine} = useRoutineContext()
   
   const [selected, setSelected] = useState(false);
 
-  // console.log(img)
   return (
     <TouchableOpacity 
      disabled={noSelect}
       style={styles.card}
       onPress={() => {
-        if (!noSelect)
+        if (noSelect === false || noSelect === undefined || resultsPage === true)
         {
           setSelected(!selected); 
           onSelect(img)
           // console.log(selected)
         }
+
       }}
       
       >
@@ -48,7 +48,7 @@ const Card = ({ img, onSelect, noSelect, resultsPage, homePage }) => {
               }
           />
         </View>
-        <Text style={resultsPage ? [styles.txt, {color: "white"}] : styles.txt}>{img}</Text>
+        <Text style={account ? styles.txt : resultsPage ? [styles.txt, {color: "white"}] : styles.txt}>{img}</Text>
     </TouchableOpacity>
   )
 }
@@ -65,9 +65,9 @@ const styles = StyleSheet.create({
     // borderWidth:0.5
   },
   image:{
-    width: "90%",
+    width: "89%",
     height: "90%",
-    borderRadius: 7,
+    borderRadius: 3,
     alignSelf: "center",
   },
   imageskin:{
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   imageSelected:{
     // opacity: 0.4,
     borderColor: "#3D5744",
-    borderWidth: 4,
+    borderWidth: 4.5,
     // backgroundColor: "#3D5744",
   },
   imageSSelected:{

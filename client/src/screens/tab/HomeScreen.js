@@ -289,7 +289,18 @@ const HomeScreen = ({navigation}) => {
         else if (todaysRecords.length === 2)
         {
           return (
-            <View style={{justifyContent: "center", alignItems: "center", marginTop: 30}}>
+            <View style={{justifyContent: "center", alignSelf: "center", marginVertical: 30, width: "80%", backgroundColor: "white",
+            padding: 15,
+            borderRadius: 10,
+            // borderWidth: 0.5
+        
+            shadowColor: '#000',
+            shadowOffset: { width: 1, height: 1 },
+            shadowOpacity:  0.4,
+            shadowRadius: 3,
+            elevation: 5,
+            
+            }}>
               <Text style={[styles.heading, {textAlign: "center"}]}>Today's Routines have been completed!</Text> 
                 {/* <ConfettiCannon count={100} origin={{x: -10, y: 10}} /> */}
             </View>
@@ -380,7 +391,7 @@ const HomeScreen = ({navigation}) => {
           <View style={styles.topExtra}>
             <View style={styles.headingView}>
               <Text style={styles.heading}>{time === "PM" ? "Good afternoon," : "Good morning,"}</Text> 
-              <Text style={[styles.heading, {fontWeight: "bold"}]}>{user.firstName}</Text> 
+              <Text style={[styles.heading, {fontWeight: "bold"}]}>{user?.firstName}</Text> 
             </View>
             
             <View style={styles.imageView}>
@@ -393,9 +404,9 @@ const HomeScreen = ({navigation}) => {
 
 
 
-        <View style={styles.calendarArrow}>
+        {/* <View style={styles.calendarArrow}>
           {displayCalendar()}
-        </View>
+        </View> */}
 
 
 

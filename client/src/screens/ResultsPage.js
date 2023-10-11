@@ -84,10 +84,9 @@ const ResultsPage = ({navigation}) => {
                         <Card img={item} key={key} resultsPage={true}/>
                     )
                 })}
-                {/* <Card img={"Hydration"}/>
-                <Text style={styles.plus}>+</Text>
-                <Card img={"Hydration"}/> */}
             </View>
+
+            
             <View style={[styles.cards, {marginBottom: 15}]}>
                 {
                 
@@ -103,8 +102,6 @@ const ResultsPage = ({navigation}) => {
                 
                 }
 
-                {/* <Text style={styles.plus}>h</Text>
-                <Text style={styles.plus}>h</Text> */}
             </View>
         </View>
 

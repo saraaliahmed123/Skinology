@@ -80,9 +80,11 @@ export const RecordProvider = ({children}) => {
         // const data = {
         //     "id": user._id
         // };
+
+
         try{
             const response = await instance.get(`/record/getRecords/${user._id}` , config);
-           // console.log(response.data)
+           console.log(response.data)
             if (response?.data.length !== 0)
             {
                 setRecords(response?.data)
